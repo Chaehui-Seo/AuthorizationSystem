@@ -9,9 +9,10 @@ import UIKit
 
 class LogInViewController: UIViewController {
     
-    @IBOutlet weak var underLineView: UIView!
+//    @IBOutlet weak var underLineView: UIView!
+    @IBOutlet weak var welcomeOutlinedLabel: OutlinedLabel!
     
-    @IBOutlet weak var welcomeTitleLabel: UIOutlinedLabel!
+//    @IBOutlet weak var welcomeTitleLabel: UIOutlinedLabel!
     @IBOutlet weak var forgotPwButton: UIButton!
     
     @IBOutlet weak var idTextField: UITextField!
@@ -20,40 +21,83 @@ class LogInViewController: UIViewController {
     @IBOutlet weak var logInButton: UIButton!
     @IBOutlet weak var registerButton: UIButton!
     
+    @IBOutlet weak var registerButtonBottomMargin: NSLayoutConstraint!
+    
+    @IBOutlet weak var imageView: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(adjustInputView), name: UIResponder.keyboardWillShowNotification, object: nil)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(adjustInputView), name: UIResponder.keyboardWillHideNotification, object: nil)
         self.style()
     }
     
     func style() {
-//        welcomeTitleLabel.outlineColor = UIColor.darkGray
-//        welcomeTitleLabel.outlineWidth = 2
-        idTextField.layer.cornerRadius = 22
-        pwTextField.layer.cornerRadius = 22
+        welcomeOutlinedLabel.outlineColor = UIColor.customDarkGray
+        welcomeOutlinedLabel.outlineWidth = 2
         logInButton.layer.cornerRadius = 25
-        logInButton.backgroundColor = UIColor.systemBlue.withAlphaComponent(0.5)
-        logInButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
-        registerButton.titleLabel?.font = UIFont.systemFont(ofSize: 15)
-        forgotPwButton.titleLabel?.font = UIFont.systemFont(ofSize: 12)
-        underLineView.alpha = 0.5
-        underLineView.layer.cornerRadius = 3
     }
-}
-
-
-class UIOutlinedLabel: UILabel {
-
-    var outlineWidth: CGFloat = 1
-    var outlineColor: UIColor = UIColor.black
-
-    override func drawText(in rect: CGRect) {
-        print("draw")
-        let strokeTextAttributes = [
-            NSAttributedString.Key.strokeColor : outlineColor,
-            NSAttributedString.Key.strokeWidth : -1 * outlineWidth,
-        ] as [NSAttributedString.Key : Any] as [NSAttributedString.Key : Any]
-
-        self.attributedText = NSAttributedString(string: self.text ?? "", attributes: strokeTextAttributes)
-        super.drawText(in: rect)
+    
+    @objc private func adjustInputView(noti: Notification) {
+        guard let userInfo = noti.userInfo else { return }
+        guard let keyboardFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {return}
+        if noti.name == UIResponder.keyboardWillShowNotification {
+            let adjustmentHeight = keyboardFrame.height - view.safeAreaInsets.bottom
+            imageView.alpha = 0
+            registerButtonBottomMargin.constant = adjustmentHeight - 50
+        } else {
+            imageView.alpha = 1
+            registerButtonBottomMargin.constant = 40
+        }
+    }
+    
+    @IBAction func loginButtonDidTap(_ sender: Any) {
+        guard let idInfo = idTextField.text, idInfo.isEmpty == false, let pwInfo = pwTextField.text, pwInfo.isEmpty == false else { return }
+        UsersAPIService.shared.login(userId: idInfo, pw: pwInfo) { result in
+            if let success = result["success"] as? Int, success == 1 {
+                // 로그인 성공
+                DispatchQueue.main.async {
+                    guard let userInfo = result["user"] as? UserInfo, let personalPage = UIStoryboard(name: "PersonalMemo", bundle: nil).instantiateViewController(withIdentifier: "MemoNavigationController") as? MemoNavigationController, let adminPage = UIStoryboard(name: "Admin", bundle: nil).instantiateViewController(withIdentifier: "AdminNavigationController") as? AdminNavigationController  else { return }
+                    if userInfo.isAdmin == 1 {
+                        UserInfoViewModel.shared.user = nil
+                        AdminViewModel.shared.adminUser = userInfo
+                        adminPage.modalPresentationStyle = .fullScreen
+                        adminPage.modalTransitionStyle = .crossDissolve
+                        self.present(adminPage, animated: true, completion: {
+                            self.idTextField.text = ""
+                            self.pwTextField.text = ""
+                        })
+                    } else {
+                        AdminViewModel.shared.adminUser = nil
+                        UserInfoViewModel.shared.user = userInfo
+                        personalPage.modalPresentationStyle = .fullScreen
+                        personalPage.modalTransitionStyle = .crossDissolve
+                        self.present(personalPage, animated: true, completion: {
+                            self.idTextField.text = ""
+                            self.pwTextField.text = ""
+                        })
+                    }
+                }
+            } else {
+//                print("실패")
+                DispatchQueue.main.async {                
+                    let alert = UIAlertController(title: "", message: "로그인 정보를 확인해주세요", preferredStyle: .alert)
+                    let action = UIAlertAction(title: "확인", style: .default, handler: nil)
+                    alert.addAction(action)
+                    self.present(alert, animated: true, completion: nil)
+                }
+            }
+        }
+    }
+    
+    @IBAction func registerButtonDidTap(_ sender: Any) {
+        guard let registerPage = UIStoryboard(name: "Register", bundle: nil).instantiateViewController(withIdentifier: "RegisterNavigationController") as? RegisterNavigationController else { return }
+        registerPage.modalPresentationStyle = .fullScreen
+        self.present(registerPage, animated: true, completion: nil)
+    }
+    
+    @IBAction func backgroundDidTap(_ sender: Any) {
+        idTextField.resignFirstResponder()
+        pwTextField.resignFirstResponder()
     }
 }
