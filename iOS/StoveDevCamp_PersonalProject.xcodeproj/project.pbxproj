@@ -7,16 +7,53 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		491CF9262768EBCE00475A15 /* UsersAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491CF9252768EBCE00475A15 /* UsersAPIService.swift */; };
+		491CF9282768EBD400475A15 /* UsersDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491CF9272768EBD400475A15 /* UsersDataModel.swift */; };
 		4930BF492768387400AAE472 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4930BF482768387400AAE472 /* AppDelegate.swift */; };
 		4930BF4B2768387400AAE472 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4930BF4A2768387400AAE472 /* SceneDelegate.swift */; };
 		4930BF4D2768387400AAE472 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4930BF4C2768387400AAE472 /* LogInViewController.swift */; };
 		4930BF502768387400AAE472 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4930BF4E2768387400AAE472 /* Main.storyboard */; };
 		4930BF522768387600AAE472 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4930BF512768387600AAE472 /* Assets.xcassets */; };
 		4930BF552768387600AAE472 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4930BF532768387600AAE472 /* LaunchScreen.storyboard */; };
-		4930BF7927687E8600AAE472 /* Register.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4930BF7827687E8600AAE472 /* Register.storyboard */; };
+		4930BF7B2768D32200AAE472 /* UILabel+OutlinedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4930BF7A2768D32200AAE472 /* UILabel+OutlinedLabel.swift */; };
+		4930BF7D2768D61200AAE472 /* UIColor+CustomColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4930BF7C2768D61200AAE472 /* UIColor+CustomColor.swift */; };
+		49474D102769BFC600E310B5 /* Admin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49474D0F2769BFC600E310B5 /* Admin.storyboard */; };
+		49474D122769C10900E310B5 /* AdminViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49474D112769C10900E310B5 /* AdminViewModel.swift */; };
+		49474D142769CB9100E310B5 /* AdminNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49474D132769CB9100E310B5 /* AdminNavigationController.swift */; };
+		49474D162769CBFD00E310B5 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49474D152769CBFD00E310B5 /* SettingViewController.swift */; };
+		49474D182769E0F600E310B5 /* PersonalMemo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49474D172769E0F600E310B5 /* PersonalMemo.storyboard */; };
+		49474D1A2769E58600E310B5 /* MemoCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49474D192769E58600E310B5 /* MemoCreateViewController.swift */; };
+		494C263D2769A9A1000E05BF /* Register.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 494C263C2769A9A0000E05BF /* Register.storyboard */; };
+		494C263F2769AC28000E05BF /* PwInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494C263E2769AC28000E05BF /* PwInputViewController.swift */; };
+		494C26412769AE55000E05BF /* RegisterNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494C26402769AE55000E05BF /* RegisterNavigationController.swift */; };
+		494C26442769B6BF000E05BF /* MemoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494C26432769B6BE000E05BF /* MemoCell.swift */; };
+		494C26472769B78D000E05BF /* UIColor+hexCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494C26462769B78D000E05BF /* UIColor+hexCode.swift */; };
+		494C264B2769BF07000E05BF /* AdminMainPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494C264A2769BF07000E05BF /* AdminMainPageViewController.swift */; };
+		4965B5DB276972AD00187DB0 /* UserInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4965B5DA276972AD00187DB0 /* UserInfoViewModel.swift */; };
+		4965B5DD276978F100187DB0 /* PersonalMemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4965B5DC276978F100187DB0 /* PersonalMemoViewController.swift */; };
+		4965B5DF2769812C00187DB0 /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4965B5DE2769812C00187DB0 /* Setting.storyboard */; };
+		4965B5E12769825100187DB0 /* MemoNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4965B5E02769825100187DB0 /* MemoNavigationController.swift */; };
+		4965B5E327698D6700187DB0 /* MemoInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4965B5E227698D6700187DB0 /* MemoInfoViewModel.swift */; };
+		4965B5E527698DFF00187DB0 /* MemosDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4965B5E427698DFF00187DB0 /* MemosDataModel.swift */; };
+		4965B5E727698E0F00187DB0 /* MemosAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4965B5E627698E0F00187DB0 /* MemosAPIService.swift */; };
+		4965B5EA27699AF900187DB0 /* BlockMessageDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4965B5E927699AF900187DB0 /* BlockMessageDataModel.swift */; };
+		4965B5EC27699B5500187DB0 /* BlockMessageAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4965B5EB27699B5500187DB0 /* BlockMessageAPIService.swift */; };
+		4965B5EF27699EA400187DB0 /* IdInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4965B5EE27699EA400187DB0 /* IdInputViewController.swift */; };
+		4965B5F12769A42000187DB0 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4965B5F02769A42000187DB0 /* RegisterViewModel.swift */; };
+		4965B5F62769A75D00187DB0 /* NickNameInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4965B5F52769A75D00187DB0 /* NickNameInputViewController.swift */; };
+		49EDF949276A42890064DB65 /* AdminMemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49EDF948276A42890064DB65 /* AdminMemoViewController.swift */; };
+		49F9A496276AFC83009D4DF2 /* Account.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49F9A495276AFC83009D4DF2 /* Account.storyboard */; };
+		49F9A498276AFCBF009D4DF2 /* NicknameChangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F9A497276AFCBF009D4DF2 /* NicknameChangeViewController.swift */; };
+		49F9A49A276AFCF7009D4DF2 /* PwChangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F9A499276AFCF7009D4DF2 /* PwChangeViewController.swift */; };
+		49F9A49C276AFD98009D4DF2 /* CurrentPwCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F9A49B276AFD98009D4DF2 /* CurrentPwCheckViewController.swift */; };
+		49F9A49E276AFE61009D4DF2 /* CurrentIdCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F9A49D276AFE61009D4DF2 /* CurrentIdCheckViewController.swift */; };
+		49F9A4A0276B0C95009D4DF2 /* PwChangeNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F9A49F276B0C95009D4DF2 /* PwChangeNavigationController.swift */; };
+		49F9A4A2276B1BFC009D4DF2 /* BlockedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F9A4A1276B1BFC009D4DF2 /* BlockedViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		491CF9252768EBCE00475A15 /* UsersAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersAPIService.swift; sourceTree = "<group>"; };
+		491CF9272768EBD400475A15 /* UsersDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersDataModel.swift; sourceTree = "<group>"; };
 		4930BF452768387400AAE472 /* StoveDevCamp_PersonalProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StoveDevCamp_PersonalProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4930BF482768387400AAE472 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4930BF4A2768387400AAE472 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -25,7 +62,40 @@
 		4930BF512768387600AAE472 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4930BF542768387600AAE472 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4930BF562768387600AAE472 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4930BF7827687E8600AAE472 /* Register.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Register.storyboard; sourceTree = "<group>"; };
+		4930BF7A2768D32200AAE472 /* UILabel+OutlinedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+OutlinedLabel.swift"; sourceTree = "<group>"; };
+		4930BF7C2768D61200AAE472 /* UIColor+CustomColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+CustomColor.swift"; sourceTree = "<group>"; };
+		49474D0F2769BFC600E310B5 /* Admin.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Admin.storyboard; sourceTree = "<group>"; };
+		49474D112769C10900E310B5 /* AdminViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminViewModel.swift; sourceTree = "<group>"; };
+		49474D132769CB9100E310B5 /* AdminNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminNavigationController.swift; sourceTree = "<group>"; };
+		49474D152769CBFD00E310B5 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		49474D172769E0F600E310B5 /* PersonalMemo.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PersonalMemo.storyboard; sourceTree = "<group>"; };
+		49474D192769E58600E310B5 /* MemoCreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoCreateViewController.swift; sourceTree = "<group>"; };
+		494C263C2769A9A0000E05BF /* Register.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Register.storyboard; sourceTree = "<group>"; };
+		494C263E2769AC28000E05BF /* PwInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PwInputViewController.swift; sourceTree = "<group>"; };
+		494C26402769AE55000E05BF /* RegisterNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterNavigationController.swift; sourceTree = "<group>"; };
+		494C26432769B6BE000E05BF /* MemoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoCell.swift; sourceTree = "<group>"; };
+		494C26462769B78D000E05BF /* UIColor+hexCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+hexCode.swift"; sourceTree = "<group>"; };
+		494C264A2769BF07000E05BF /* AdminMainPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminMainPageViewController.swift; sourceTree = "<group>"; };
+		4965B5DA276972AD00187DB0 /* UserInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoViewModel.swift; sourceTree = "<group>"; };
+		4965B5DC276978F100187DB0 /* PersonalMemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalMemoViewController.swift; sourceTree = "<group>"; };
+		4965B5DE2769812C00187DB0 /* Setting.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
+		4965B5E02769825100187DB0 /* MemoNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoNavigationController.swift; sourceTree = "<group>"; };
+		4965B5E227698D6700187DB0 /* MemoInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoInfoViewModel.swift; sourceTree = "<group>"; };
+		4965B5E427698DFF00187DB0 /* MemosDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemosDataModel.swift; sourceTree = "<group>"; };
+		4965B5E627698E0F00187DB0 /* MemosAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemosAPIService.swift; sourceTree = "<group>"; };
+		4965B5E927699AF900187DB0 /* BlockMessageDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockMessageDataModel.swift; sourceTree = "<group>"; };
+		4965B5EB27699B5500187DB0 /* BlockMessageAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockMessageAPIService.swift; sourceTree = "<group>"; };
+		4965B5EE27699EA400187DB0 /* IdInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdInputViewController.swift; sourceTree = "<group>"; };
+		4965B5F02769A42000187DB0 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
+		4965B5F52769A75D00187DB0 /* NickNameInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameInputViewController.swift; sourceTree = "<group>"; };
+		49EDF948276A42890064DB65 /* AdminMemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminMemoViewController.swift; sourceTree = "<group>"; };
+		49F9A495276AFC83009D4DF2 /* Account.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Account.storyboard; sourceTree = "<group>"; };
+		49F9A497276AFCBF009D4DF2 /* NicknameChangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameChangeViewController.swift; sourceTree = "<group>"; };
+		49F9A499276AFCF7009D4DF2 /* PwChangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PwChangeViewController.swift; sourceTree = "<group>"; };
+		49F9A49B276AFD98009D4DF2 /* CurrentPwCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentPwCheckViewController.swift; sourceTree = "<group>"; };
+		49F9A49D276AFE61009D4DF2 /* CurrentIdCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentIdCheckViewController.swift; sourceTree = "<group>"; };
+		49F9A49F276B0C95009D4DF2 /* PwChangeNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PwChangeNavigationController.swift; sourceTree = "<group>"; };
+		49F9A4A1276B1BFC009D4DF2 /* BlockedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +109,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		491CF9212768EB4600475A15 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				494C26462769B78D000E05BF /* UIColor+hexCode.swift */,
+				4930BF7C2768D61200AAE472 /* UIColor+CustomColor.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		491CF9222768EB5300475A15 /* Customized */ = {
+			isa = PBXGroup;
+			children = (
+				4930BF7A2768D32200AAE472 /* UILabel+OutlinedLabel.swift */,
+			);
+			path = Customized;
+			sourceTree = "<group>";
+		};
+		491CF9292768EBDA00475A15 /* UsersAPI */ = {
+			isa = PBXGroup;
+			children = (
+				491CF9252768EBCE00475A15 /* UsersAPIService.swift */,
+				491CF9272768EBD400475A15 /* UsersDataModel.swift */,
+			);
+			path = UsersAPI;
+			sourceTree = "<group>";
+		};
 		4930BF3C2768387400AAE472 = {
 			isa = PBXGroup;
 			children = (
@@ -61,13 +157,118 @@
 				4930BF482768387400AAE472 /* AppDelegate.swift */,
 				4930BF4A2768387400AAE472 /* SceneDelegate.swift */,
 				4930BF4E2768387400AAE472 /* Main.storyboard */,
-				4930BF7827687E8600AAE472 /* Register.storyboard */,
 				4930BF4C2768387400AAE472 /* LogInViewController.swift */,
+				49EDF94A276A49F30064DB65 /* Memo */,
+				4965B5F32769A5F500187DB0 /* Register */,
+				494C264C2769BF7E000E05BF /* Admin */,
+				494C26432769B6BE000E05BF /* MemoCell.swift */,
+				49F9A495276AFC83009D4DF2 /* Account.storyboard */,
+				49F9A49F276B0C95009D4DF2 /* PwChangeNavigationController.swift */,
+				49F9A49D276AFE61009D4DF2 /* CurrentIdCheckViewController.swift */,
+				49F9A49B276AFD98009D4DF2 /* CurrentPwCheckViewController.swift */,
+				49F9A499276AFCF7009D4DF2 /* PwChangeViewController.swift */,
+				49F9A497276AFCBF009D4DF2 /* NicknameChangeViewController.swift */,
+				49F9A494276ABF28009D4DF2 /* Setting */,
+				494C26452769B6D3000E05BF /* ViewModel */,
+				4965B5ED27699B5A00187DB0 /* BlockMessageAPI */,
+				4965B5E827698E4B00187DB0 /* MemosAPI */,
+				491CF9292768EBDA00475A15 /* UsersAPI */,
+				491CF9212768EB4600475A15 /* Extensions */,
+				491CF9222768EB5300475A15 /* Customized */,
 				4930BF512768387600AAE472 /* Assets.xcassets */,
 				4930BF532768387600AAE472 /* LaunchScreen.storyboard */,
 				4930BF562768387600AAE472 /* Info.plist */,
 			);
 			path = StoveDevCamp_PersonalProject;
+			sourceTree = "<group>";
+		};
+		494C26422769B690000E05BF /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				494C26402769AE55000E05BF /* RegisterNavigationController.swift */,
+				4965B5EE27699EA400187DB0 /* IdInputViewController.swift */,
+				4965B5F52769A75D00187DB0 /* NickNameInputViewController.swift */,
+				494C263E2769AC28000E05BF /* PwInputViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		494C26452769B6D3000E05BF /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				4965B5DA276972AD00187DB0 /* UserInfoViewModel.swift */,
+				4965B5E227698D6700187DB0 /* MemoInfoViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		494C264C2769BF7E000E05BF /* Admin */ = {
+			isa = PBXGroup;
+			children = (
+				49474D0F2769BFC600E310B5 /* Admin.storyboard */,
+				49EDF948276A42890064DB65 /* AdminMemoViewController.swift */,
+				49474D132769CB9100E310B5 /* AdminNavigationController.swift */,
+				494C264A2769BF07000E05BF /* AdminMainPageViewController.swift */,
+				49474D112769C10900E310B5 /* AdminViewModel.swift */,
+			);
+			path = Admin;
+			sourceTree = "<group>";
+		};
+		4965B5E827698E4B00187DB0 /* MemosAPI */ = {
+			isa = PBXGroup;
+			children = (
+				4965B5E627698E0F00187DB0 /* MemosAPIService.swift */,
+				4965B5E427698DFF00187DB0 /* MemosDataModel.swift */,
+			);
+			path = MemosAPI;
+			sourceTree = "<group>";
+		};
+		4965B5ED27699B5A00187DB0 /* BlockMessageAPI */ = {
+			isa = PBXGroup;
+			children = (
+				4965B5EB27699B5500187DB0 /* BlockMessageAPIService.swift */,
+				4965B5E927699AF900187DB0 /* BlockMessageDataModel.swift */,
+			);
+			path = BlockMessageAPI;
+			sourceTree = "<group>";
+		};
+		4965B5F32769A5F500187DB0 /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				494C263C2769A9A0000E05BF /* Register.storyboard */,
+				494C26422769B690000E05BF /* ViewController */,
+				4965B5F42769A60300187DB0 /* ViewModel */,
+			);
+			path = Register;
+			sourceTree = "<group>";
+		};
+		4965B5F42769A60300187DB0 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				4965B5F02769A42000187DB0 /* RegisterViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		49EDF94A276A49F30064DB65 /* Memo */ = {
+			isa = PBXGroup;
+			children = (
+				49474D172769E0F600E310B5 /* PersonalMemo.storyboard */,
+				4965B5E02769825100187DB0 /* MemoNavigationController.swift */,
+				4965B5DC276978F100187DB0 /* PersonalMemoViewController.swift */,
+				49474D192769E58600E310B5 /* MemoCreateViewController.swift */,
+				49F9A4A1276B1BFC009D4DF2 /* BlockedViewController.swift */,
+			);
+			path = Memo;
+			sourceTree = "<group>";
+		};
+		49F9A494276ABF28009D4DF2 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				4965B5DE2769812C00187DB0 /* Setting.storyboard */,
+				49474D152769CBFD00E310B5 /* SettingViewController.swift */,
+			);
+			path = Setting;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -130,8 +331,12 @@
 			files = (
 				4930BF552768387600AAE472 /* LaunchScreen.storyboard in Resources */,
 				4930BF522768387600AAE472 /* Assets.xcassets in Resources */,
+				49474D182769E0F600E310B5 /* PersonalMemo.storyboard in Resources */,
+				4965B5DF2769812C00187DB0 /* Setting.storyboard in Resources */,
 				4930BF502768387400AAE472 /* Main.storyboard in Resources */,
-				4930BF7927687E8600AAE472 /* Register.storyboard in Resources */,
+				49474D102769BFC600E310B5 /* Admin.storyboard in Resources */,
+				49F9A496276AFC83009D4DF2 /* Account.storyboard in Resources */,
+				494C263D2769A9A1000E05BF /* Register.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -143,8 +348,39 @@
 			buildActionMask = 2147483647;
 			files = (
 				4930BF4D2768387400AAE472 /* LogInViewController.swift in Sources */,
+				494C263F2769AC28000E05BF /* PwInputViewController.swift in Sources */,
+				4965B5F62769A75D00187DB0 /* NickNameInputViewController.swift in Sources */,
+				49474D162769CBFD00E310B5 /* SettingViewController.swift in Sources */,
+				4965B5DB276972AD00187DB0 /* UserInfoViewModel.swift in Sources */,
+				4965B5EF27699EA400187DB0 /* IdInputViewController.swift in Sources */,
 				4930BF492768387400AAE472 /* AppDelegate.swift in Sources */,
+				49F9A49A276AFCF7009D4DF2 /* PwChangeViewController.swift in Sources */,
+				49474D1A2769E58600E310B5 /* MemoCreateViewController.swift in Sources */,
 				4930BF4B2768387400AAE472 /* SceneDelegate.swift in Sources */,
+				4965B5E727698E0F00187DB0 /* MemosAPIService.swift in Sources */,
+				49474D142769CB9100E310B5 /* AdminNavigationController.swift in Sources */,
+				4965B5EA27699AF900187DB0 /* BlockMessageDataModel.swift in Sources */,
+				491CF9282768EBD400475A15 /* UsersDataModel.swift in Sources */,
+				4965B5EC27699B5500187DB0 /* BlockMessageAPIService.swift in Sources */,
+				49EDF949276A42890064DB65 /* AdminMemoViewController.swift in Sources */,
+				4965B5F12769A42000187DB0 /* RegisterViewModel.swift in Sources */,
+				49474D122769C10900E310B5 /* AdminViewModel.swift in Sources */,
+				49F9A49E276AFE61009D4DF2 /* CurrentIdCheckViewController.swift in Sources */,
+				49F9A498276AFCBF009D4DF2 /* NicknameChangeViewController.swift in Sources */,
+				4965B5E327698D6700187DB0 /* MemoInfoViewModel.swift in Sources */,
+				49F9A4A2276B1BFC009D4DF2 /* BlockedViewController.swift in Sources */,
+				49F9A49C276AFD98009D4DF2 /* CurrentPwCheckViewController.swift in Sources */,
+				491CF9262768EBCE00475A15 /* UsersAPIService.swift in Sources */,
+				494C26442769B6BF000E05BF /* MemoCell.swift in Sources */,
+				494C264B2769BF07000E05BF /* AdminMainPageViewController.swift in Sources */,
+				494C26412769AE55000E05BF /* RegisterNavigationController.swift in Sources */,
+				494C26472769B78D000E05BF /* UIColor+hexCode.swift in Sources */,
+				4965B5E527698DFF00187DB0 /* MemosDataModel.swift in Sources */,
+				4930BF7D2768D61200AAE472 /* UIColor+CustomColor.swift in Sources */,
+				4930BF7B2768D32200AAE472 /* UILabel+OutlinedLabel.swift in Sources */,
+				49F9A4A0276B0C95009D4DF2 /* PwChangeNavigationController.swift in Sources */,
+				4965B5DD276978F100187DB0 /* PersonalMemoViewController.swift in Sources */,
+				4965B5E12769825100187DB0 /* MemoNavigationController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

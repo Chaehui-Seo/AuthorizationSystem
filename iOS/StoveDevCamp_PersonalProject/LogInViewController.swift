@@ -59,7 +59,7 @@ class LogInViewController: UIViewController {
                 DispatchQueue.main.async {
                     guard let userInfo = result["user"] as? UserInfo, let personalPage = UIStoryboard(name: "PersonalMemo", bundle: nil).instantiateViewController(withIdentifier: "MemoNavigationController") as? MemoNavigationController, let adminPage = UIStoryboard(name: "Admin", bundle: nil).instantiateViewController(withIdentifier: "AdminNavigationController") as? AdminNavigationController  else { return }
                     if userInfo.isAdmin == 1 {
-                        UserInfoViewModel.shared.user = nil
+                        UserInfoViewModel.shared.user = userInfo
                         AdminViewModel.shared.adminUser = userInfo
                         adminPage.modalPresentationStyle = .fullScreen
                         adminPage.modalTransitionStyle = .crossDissolve
@@ -70,6 +70,7 @@ class LogInViewController: UIViewController {
                     } else {
                         AdminViewModel.shared.adminUser = nil
                         UserInfoViewModel.shared.user = userInfo
+                        MemoViewModel.shared.user = userInfo
                         personalPage.modalPresentationStyle = .fullScreen
                         personalPage.modalTransitionStyle = .crossDissolve
                         self.present(personalPage, animated: true, completion: {
@@ -95,6 +96,13 @@ class LogInViewController: UIViewController {
         registerPage.modalPresentationStyle = .fullScreen
         self.present(registerPage, animated: true, completion: nil)
     }
+    
+    @IBAction func forgetPwButton(_ sender: Any) {
+        guard let forgotPwPage = UIStoryboard(name: "Account", bundle: nil).instantiateViewController(withIdentifier: "PwChangeNavigationController") as? PwChangeNavigationController else { return }
+        forgotPwPage.modalPresentationStyle = .fullScreen
+        self.present(forgotPwPage, animated: true, completion: nil)
+    }
+    
     
     @IBAction func backgroundDidTap(_ sender: Any) {
         idTextField.resignFirstResponder()
