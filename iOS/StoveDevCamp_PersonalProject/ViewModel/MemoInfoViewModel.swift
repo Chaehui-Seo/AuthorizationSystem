@@ -12,6 +12,8 @@ import Combine
 class MemoViewModel {
     static let shared = MemoViewModel()
     
+    @Published var user: UserInfo?
+    
     @Published var memos: [MemoInfo]?
     
     @Published var selectedMemo: MemoInfo?
