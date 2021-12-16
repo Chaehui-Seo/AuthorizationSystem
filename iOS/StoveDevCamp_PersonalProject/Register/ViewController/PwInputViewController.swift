@@ -102,13 +102,19 @@ class PwInputViewController: UIViewController{
         UsersAPIService.shared.register(userId: userInfo, nickName: nickNameInfo, password: pwInfo) { result in
             if let success = result["success"] as? Int, success == 1 {
                 DispatchQueue.main.async {
-                    let rootView = self.presentingViewController
-                    self.navigationController?.dismiss(animated: false, completion: {
-                        guard let userInfo = result["user"] as? UserInfo, let personalPage = UIStoryboard(name: "PersonalMemo", bundle: nil).instantiateViewController(withIdentifier: "MemoNavigationController") as? MemoNavigationController else { return }
-                        UserInfoViewModel.shared.user = userInfo
-                        personalPage.modalPresentationStyle = .fullScreen
-                        rootView?.present(personalPage, animated: false, completion: nil)
-                    })
+//                    let rootView = self.presentingViewController
+//                    self.navigationController?.dismiss(animated: false, completion: {
+//                        guard let userInfo = result["user"] as? UserInfo, let personalPage = UIStoryboard(name: "PersonalMemo", bundle: nil).instantiateViewController(withIdentifier: "MemoNavigationController") as? MemoNavigationController else { return }
+//                        UserInfoViewModel.shared.user = userInfo
+//                        MemoViewModel.shared.user = userInfo
+//                        personalPage.modalPresentationStyle = .fullScreen
+//                        rootView?.present(personalPage, animated: false, completion: nil)
+//                    })
+                    guard let userInfo = result["user"] as? UserInfo, let memoPage = UIStoryboard(name: "PersonalMemo", bundle: nil).instantiateViewController(withIdentifier: "PersonalMemoViewController") as? PersonalMemoViewController, var viewControllers = self.navigationController?.viewControllers else { return }
+                    UserInfoViewModel.shared.user = userInfo
+                    MemoViewModel.shared.user = userInfo
+                    viewControllers[viewControllers.count - 1] = memoPage
+                    self.navigationController?.setViewControllers(viewControllers, animated: true)
                 }
             } else {
                 DispatchQueue.main.async {

@@ -120,7 +120,7 @@ struct UsersAPIService {
     }
 
     func emailVerified(userId: String, completion: @escaping ([String: Any])->Void) {
-        let url = URL(string: "http://localhost:3306/users/finish-email-verification")!
+        let url = URL(string: "http://localhost:3306/users/email-verification-checked")!
         var request = URLRequest(url: url)
         
         let postData : [String: Any] = ["userId" : userId]
@@ -145,7 +145,7 @@ struct UsersAPIService {
     }
 
     func sendEmailVerification(userId: String, completion: @escaping ([String: Any])->Void) {
-        let url = URL(string: "http://localhost:3306/users/send-email-verification")!
+        let url = URL(string: "http://localhost:3306/users/email-verification-register")!
         var request = URLRequest(url: url)
         
         let postData : [String: Any] = ["userId" : userId]
@@ -195,11 +195,36 @@ struct UsersAPIService {
     }
 
 
-    func changePassword(jwt: String?, userId: String, password: String, isAdmin: Int, completion: @escaping ([String: Any])->Void) {
-        let url = URL(string: "http://localhost:3306/users/temp-password")!
+    func sendEmailForPw(userId: String, completion: @escaping ([String: Any])->Void) {
+        let url = URL(string: "http://localhost:3306/users/email-verification-password")!
         var request = URLRequest(url: url)
         
-        let postData : [String: Any] = ["userId" : userId, "newPw" : password, "isAdmin": isAdmin]
+        let postData : [String: Any] = ["userId" : userId]
+        let jsonData = try? JSONSerialization.data(withJSONObject: postData)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = jsonData
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                completion(["success" : 0])
+                return
+            }
+            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            if let result = responseJSON as? [String: Any] {
+                completion(result)
+            } else {
+                completion(["success" : 0])
+            }
+        }
+        task.resume()
+    }
+    
+    func changePassword(jwt: String?, userId: String, newPw: String, isAdmin: Int, completion: @escaping ([String: Any])->Void) {
+        let url = URL(string: "http://localhost:3306/users/change-password")!
+        var request = URLRequest(url: url)
+        
+        let postData : [String: Any] = ["userId" : userId, "newPw" : newPw, "isAdmin": isAdmin]
         let jsonData = try? JSONSerialization.data(withJSONObject: postData)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -217,12 +242,20 @@ struct UsersAPIService {
             if let result = responseJSON as? [String: Any] {
                 completion(result)
             } else {
-                completion(["success" : 0])
+                do {
+                    let decoder = JSONDecoder()
+                    decoder.dateDecodingStrategy = .millisecondsSince1970
+                    let response = try decoder.decode([UserInfo].self, from: data)
+                    completion(["success":1, "user": response[0]])
+                } catch let error {
+                    print("---> error in login : \(error.localizedDescription)")
+                    completion(["success" : 0])
+                }
             }
         }
         task.resume()
     }
-
+    
     func changeNickName(jwt: String?, userId: String, nickName: String, isAdmin: Int, completion: @escaping ([String: Any])->Void) {
         let url = URL(string: "http://localhost:3306/users/change-nickname")!
         var request = URLRequest(url: url)
@@ -245,7 +278,15 @@ struct UsersAPIService {
             if let result = responseJSON as? [String: Any] {
                 completion(result)
             } else {
-                completion(["success" : 0])
+                do {
+                    let decoder = JSONDecoder()
+                    decoder.dateDecodingStrategy = .millisecondsSince1970
+                    let response = try decoder.decode([UserInfo].self, from: data)
+                    completion(["success":1, "user": response[0]])
+                } catch let error {
+                    print("---> error in login : \(error.localizedDescription)")
+                    completion(["success" : 0])
+                }
             }
         }
         task.resume()
@@ -280,7 +321,7 @@ struct UsersAPIService {
         task.resume()
     }
 
-    func changeUserBlock(jwt: String?, userId: String, isBlocked: Int, isAdmin: Int, completion: @escaping ([String: Any])->Void) {
+    func changeUserBlock(jwt: String?, userId: String, isBlocked: Int, isAdmin: Int, completion: @escaping ([UserInfo])->Void) {
         let url = URL(string: "http://localhost:3306/users/change-user-block")!
         var request = URLRequest(url: url)
         
@@ -293,16 +334,22 @@ struct UsersAPIService {
         }
         request.httpBody = jsonData
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data, error == nil else {
-                print(error?.localizedDescription ?? "No data")
-                completion(["success" : 0])
+            let successRange = 200 ..< 300
+            guard error == nil, let statusCode = (response as? HTTPURLResponse)?.statusCode, successRange.contains(statusCode) else {
+                completion([])
                 return
             }
-            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-            if let result = responseJSON as? [String: Any] {
-                completion(result)
-            } else {
-                completion(["success" : 0])
+            guard let resultData = data else {
+                completion([])
+                return
+            }
+            do {
+                let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .millisecondsSince1970
+                let response = try decoder.decode([UserInfo].self, from: resultData)
+                completion(response)
+            } catch let error {
+                print("---> error in load user : \(error.localizedDescription)")
             }
         }
         task.resume()
@@ -366,5 +413,34 @@ struct UsersAPIService {
             }
         }
         task.resume()
+    }
+    
+    func withdrawal(jwt: String?, userId: String, password: String, isAdmin: Int, completion: @escaping ([String: Any])->Void) {
+        let url = URL(string: "http://localhost:3306/users/withdrawal")!
+        var request = URLRequest(url: url)
+        let postData : [String: Any] = ["userId": userId, "password":password, "isAdmin": isAdmin]
+        let jsonData = try? JSONSerialization.data(withJSONObject: postData)
+        request.httpMethod = "DELETE"
+        request.httpBody = jsonData
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        if let token = jwt {
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+        let dataTask = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                completion(["success" : 0])
+                return
+            }
+            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            if let result = responseJSON as? [String: Any] {
+                completion(result)
+            } else {
+                completion(["success" : 0])
+            }
+        }
+        dataTask.resume()
+
     }
 }
