@@ -39,6 +39,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="eiZ-Fv-Y2z"/>
                                         </constraints>
+                                        <color key="textColor" name="customViolet"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="email"/>
                                         <connections>
@@ -59,6 +60,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="syJ-Tf-gCn"/>
                                 </constraints>
+                                <color key="textColor" name="customViolet"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                                 <connections>
@@ -202,6 +204,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="L2p-dZ-H3Z"/>
                                         </constraints>
+                                        <color key="textColor" name="customViolet"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                                         <connections>
@@ -310,6 +313,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="GaU-eD-3vW"/>
                                         </constraints>
+                                        <color key="textColor" name="customViolet"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                                         <connections>
@@ -346,6 +350,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="hfy-5l-piE"/>
                                         </constraints>
+                                        <color key="textColor" name="customViolet"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                                         <connections>

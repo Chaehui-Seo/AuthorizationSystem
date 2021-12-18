@@ -16,4 +16,8 @@ extension UIColor {
     static var customDarkGray: UIColor {
         return UIColor(red: 0.184, green: 0.18, blue: 0.251, alpha: 1)
     }
+    
+    static var customLightViolet: UIColor {
+        return UIColor(red: 0.761, green: 0.765, blue: 0.969, alpha: 1)
+    }
 }
