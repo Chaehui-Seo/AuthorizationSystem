@@ -74,9 +74,13 @@ class BlockedViewController: UIViewController {
         if emojiBackgroundView.isHidden == true {
             self.emojiBackgroundView.isHidden = false
             self.emojiStackView.isHidden = false
+            self.emojiBackgroundView.transform = CGAffineTransform(translationX: 0, y: 10)
+            self.emojiStackView.transform = CGAffineTransform(translationX: 0, y: 10)
             UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut) {
-                self.emojiStackView.alpha = 1
                 self.emojiBackgroundView.alpha = 1
+                self.emojiStackView.alpha = 1
+                self.emojiBackgroundView.transform = CGAffineTransform.identity
+                self.emojiStackView.transform = CGAffineTransform.identity
             }
 
             for i in emojiStackView.arrangedSubviews {
@@ -210,6 +214,14 @@ class BlockedViewController: UIViewController {
     
     // 로그아웃
     @IBAction func logoutButtonDidTap(_ sender: Any) {
+        MemoViewModel.shared.selectedMemo = nil
+        AdminViewModel.shared.adminUser = nil
+        UserInfoViewModel.shared.user = nil
+        MemoViewModel.shared.user = nil
+        MemoViewModel.shared.memos = nil
+        KeychainWrapper.standard.removeObject(forKey: KeychainWrapper.Key.accessToken.rawValue)
+        KeychainWrapper.standard.removeObject(forKey: KeychainWrapper.Key.id.rawValue)
+        KeychainWrapper.standard.removeObject(forKey: KeychainWrapper.Key.refreshToken.rawValue)
         self.parent?.dismiss(animated: true, completion: nil)
     }
 }

@@ -142,7 +142,7 @@ extension AdminMainPageViewController: UITableViewDataSource, UITableViewDelegat
                                     self.present(alert, animated: true, completion: nil)
                                 }
                             case .InvalidToken :
-                                UsersAPIService.shared.checkRefreshToken(jwt: userInfo.refreshToken ?? "", userId: userInfo.userId) { result2 in
+                                UsersAPIService.shared.checkRefreshToken() { result2 in
                                     DispatchQueue.main.async {
                                         switch APIResponseAnalyze.analyze_withToken(result: result2, vc: self) {
                                         case .success :
@@ -196,7 +196,7 @@ extension AdminMainPageViewController: UITableViewDataSource, UITableViewDelegat
                                     }
                                 }
                             case .InvalidToken :
-                                UsersAPIService.shared.checkRefreshToken(jwt: userInfo.refreshToken ?? "", userId: userInfo.userId) { result2 in
+                                UsersAPIService.shared.checkRefreshToken() { result2 in
                                     DispatchQueue.main.async {
                                         switch APIResponseAnalyze.analyze_withToken(result: result2, vc: self) {
                                         case .success :
@@ -270,7 +270,7 @@ extension AdminMainPageViewController: UITableViewDataSource, UITableViewDelegat
                                 }
                             }
                         case .InvalidToken :
-                            UsersAPIService.shared.checkRefreshToken(jwt: userInfo.refreshToken ?? "", userId: userInfo.userId) { result2 in
+                            UsersAPIService.shared.checkRefreshToken() { result2 in
                                 DispatchQueue.main.async {
                                     switch APIResponseAnalyze.analyze_withToken(result: result2, vc: self) {
                                     case .success :

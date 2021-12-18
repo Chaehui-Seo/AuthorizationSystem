@@ -51,20 +51,22 @@ class NicknameChangeViewController: UIViewController {
     // 다음
     @IBAction func nextButtonDidTap(_ sender: Any) {
         guard let nickNameInfo = nickNameTextField.text, nickNameInfo.isEmpty == false, let userInfo = UserInfoViewModel.shared.user else { return }
-        UsersAPIService.shared.changeNickName(jwt: KeychainWrapper.standard[.accessToken], userId: userInfo.userId, nickName: nickNameInfo, isAdmin: userInfo.isAdmin) { result in
-            
+        UsersAPIService.shared.changeNickName(jwt: KeychainWrapper.standard[.accessToken], userId: userInfo.userId, nickName: nickNameInfo, isAdmin: AdminViewModel.shared.adminUser == nil ? userInfo.isAdmin : 1) { result in
             DispatchQueue.main.async {
                 switch APIResponseAnalyze.analyze_withToken(result: result, vc: self) {
                 case .success :
                     if let user = result["user"] as? UserInfo {
                         UserInfoViewModel.shared.user = user
+                        if let adminUser = AdminViewModel.shared.adminUser, adminUser.userId == user.userId {
+                            AdminViewModel.shared.adminUser = user
+                        }
                         if let memoUser = MemoViewModel.shared.user, memoUser.userId == user.userId {
                             MemoViewModel.shared.user = user
                         } else {
-                            UsersAPIService.shared.loadUsers { list in
+                            UsersAPIService.shared.loadUsers { result2 in
                                 DispatchQueue.main.async {
-                                    if APIResponseAnalyze.analyze(result: result, vc: self) == .success {
-                                        if let list = result["user"] as? [UserInfo] {
+                                    if APIResponseAnalyze.analyze(result: result2, vc: self) == .success {
+                                        if let list = result2["user"] as? [UserInfo] {
                                             AdminViewModel.shared.users = list
                                         }
                                     }
@@ -81,11 +83,11 @@ class NicknameChangeViewController: UIViewController {
                         }
                     }
                 case .InvalidToken :
-                    UsersAPIService.shared.checkRefreshToken(jwt: userInfo.refreshToken ?? "", userId: userInfo.userId) { result2 in
+                    UsersAPIService.shared.checkRefreshToken() { result2 in
                         DispatchQueue.main.async {
                             switch APIResponseAnalyze.analyze_withToken(result: result2, vc: self) {
                             case .success :
-                                UsersAPIService.shared.changeNickName(jwt: KeychainWrapper.standard[.accessToken], userId: userInfo.userId, nickName: nickNameInfo, isAdmin: userInfo.isAdmin) { result3 in
+                                UsersAPIService.shared.changeNickName(jwt: KeychainWrapper.standard[.accessToken], userId: userInfo.userId, nickName: nickNameInfo, isAdmin: AdminViewModel.shared.adminUser == nil ? userInfo.isAdmin : 1) { result3 in
                                     DispatchQueue.main.async {
                                         switch APIResponseAnalyze.analyze_withToken(result: result3, vc: self) {
                                         case .success :
@@ -94,10 +96,10 @@ class NicknameChangeViewController: UIViewController {
                                                 if let memoUser = MemoViewModel.shared.user, memoUser.userId == user.userId {
                                                     MemoViewModel.shared.user = user
                                                 } else {
-                                                    UsersAPIService.shared.loadUsers { list in
+                                                    UsersAPIService.shared.loadUsers { result4 in
                                                         DispatchQueue.main.async {
-                                                            if APIResponseAnalyze.analyze(result: result, vc: self) == .success {
-                                                                if let list = result["user"] as? [UserInfo] {
+                                                            if APIResponseAnalyze.analyze(result: result4, vc: self) == .success {
+                                                                if let list = result4["user"] as? [UserInfo] {
                                                                     AdminViewModel.shared.users = list
                                                                 }
                                                             }

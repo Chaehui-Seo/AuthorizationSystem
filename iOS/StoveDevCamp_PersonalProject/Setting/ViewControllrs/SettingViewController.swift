@@ -99,6 +99,45 @@ class SettingViewController: UIViewController{
                                 alert.addAction(action1)
                                 self.present(alert, animated: true, completion: nil)
                             }
+                        } else if let message = result["message"] as? String, message == "Invalid token" {
+                            UsersAPIService.shared.checkRefreshToken() { result2 in
+                                DispatchQueue.main.async {
+                                    switch APIResponseAnalyze.analyze_withToken(result: result2, vc: self) {
+                                    case .success :
+                                        UsersAPIService.shared.withdrawal(jwt: KeychainWrapper.standard[.accessToken], userId: userInfo.userId, password: pwInfo, isAdmin: userInfo.isAdmin) { result3 in
+                                            if let success = result3["success"] as? Int, success == 1 {
+                                                UserInfoViewModel.shared.user = nil
+                                                AdminViewModel.shared.adminUser = nil
+                                                MemoViewModel.shared.user = nil
+                                                MemoViewModel.shared.memos = nil
+                                                KeychainWrapper.standard.removeObject(forKey: KeychainWrapper.Key.accessToken.rawValue)
+                                                KeychainWrapper.standard.removeObject(forKey: KeychainWrapper.Key.id.rawValue)
+                                                KeychainWrapper.standard.removeObject(forKey: KeychainWrapper.Key.refreshToken.rawValue)
+                                                DispatchQueue.main.async {
+                                                    self.dismiss(animated: true, completion: nil)
+                                                }
+                                            } else{
+                                                DispatchQueue.main.async {
+                                                    let alert = UIAlertController(title: "회원탈퇴", message: "오류가 발생해서 탈퇴가 실패했습니다", preferredStyle: .alert)
+                                                    let action1 = UIAlertAction(title: "확인", style: .cancel, handler: nil)
+                                                    alert.addAction(action1)
+                                                    self.present(alert, animated: true, completion: nil)
+                                                }
+                                            }
+                                        }
+                                    case .InvalidToken:
+                                        let alert = UIAlertController(title: "회원탈퇴", message: "오류가 발생해서 탈퇴가 실패했습니다", preferredStyle: .alert)
+                                        let action1 = UIAlertAction(title: "확인", style: .cancel, handler: nil)
+                                        alert.addAction(action1)
+                                        self.present(alert, animated: true, completion: nil)
+                                    case .fail:
+                                        let alert = UIAlertController(title: "회원탈퇴", message: "오류가 발생해서 탈퇴가 실패했습니다", preferredStyle: .alert)
+                                        let action1 = UIAlertAction(title: "확인", style: .cancel, handler: nil)
+                                        alert.addAction(action1)
+                                        self.present(alert, animated: true, completion: nil)
+                                    }
+                                }
+                            }
                         } else {
                             DispatchQueue.main.async {
                                 let alert = UIAlertController(title: "회원탈퇴", message: "오류가 발생해서 탈퇴가 실패했습니다", preferredStyle: .alert)

@@ -115,6 +115,8 @@ class PwInputViewController: UIViewController{
                     memoPage.view.addSubview(welcome.view)
                     welcome.didMove(toParent: memoPage)
                     
+                    UserDefaults.standard.set(false, forKey: "onRegister")
+                    UserDefaults.standard.removeObject(forKey: "onRegister-Email")
                     UserInfoViewModel.shared.user = userInfo
                     MemoViewModel.shared.user = userInfo
                     KeychainWrapper.standard.set(userInfo.userId, forKey: KeychainWrapper.Key.id.rawValue)

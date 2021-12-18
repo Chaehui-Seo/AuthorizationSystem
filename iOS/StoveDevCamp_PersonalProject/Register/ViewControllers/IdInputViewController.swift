@@ -32,6 +32,9 @@ class IdInputViewController: UIViewController {
     func style() {
         sendVerifyMailButton.layer.cornerRadius = 25
         nextButton.layer.cornerRadius = 25
+        if let idInfo = UserDefaults.standard.string(forKey: "onRegister-Email") {
+            idTextField.text = idInfo
+        }
     }
     
     // MARK: Email(id) input
@@ -47,8 +50,11 @@ class IdInputViewController: UIViewController {
             idFormatCheckLabel.text = "이메일을 입력해주세요"
             idFormatCheckLabel.textColor = UIColor.customViolet
             sendVerifyMailButton.isEnabled = false
+            UserDefaults.standard.set(false, forKey: "onRegister")
             return
         }
+        UserDefaults.standard.set(true, forKey: "onRegister")
+        UserDefaults.standard.set(idInfo, forKey: "onRegister-Email")
         if let viewModelIdInfo = RegisterViewModel.shared.userId {
             if idInfo != viewModelIdInfo {
                 idFormatCheckLabel.isHidden = false
@@ -129,6 +135,8 @@ class IdInputViewController: UIViewController {
     
     // 백그라운드 탭
     @IBAction func backButtonDidTap(_ sender: Any) {
+        UserDefaults.standard.set(false, forKey: "onRegister")
+        UserDefaults.standard.removeObject(forKey: "onRegister-Email")
         dismiss(animated: true, completion: nil)
     }
 }

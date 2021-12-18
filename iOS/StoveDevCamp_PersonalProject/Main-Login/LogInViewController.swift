@@ -27,6 +27,7 @@ class LogInViewController: UIViewController {
     @IBOutlet weak var autoLoginCheckImage: UIImageView!
     @IBOutlet weak var autoLoginLabel: UILabel!
     @IBOutlet weak var autoLoginButton: UIButton!
+    let animationView: AnimationView = .init(name: "blop_violet")
     
     // MARK: Life Cycle
     override func viewDidLoad() {
@@ -34,14 +35,13 @@ class LogInViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(adjustInputView), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(adjustInputView), name: UIResponder.keyboardWillHideNotification, object: nil)
         self.style()
-        let animationView: AnimationView = .init(name: "blop_violet")
         loadingView.isHidden = false
         loadingView.addSubview(animationView)
         animationView.frame = CGRect(x: self.view.bounds.midX - 50, y: self.view.bounds.midY - 100, width: 100, height: 100)
         animationView.contentMode = .scaleAspectFit
         animationView.animationSpeed = 4
         
-        let autoLogin: Bool = KeychainWrapper.standard[.autoLogin] ?? false
+        let autoLogin: Bool = UserDefaults.standard.bool(forKey: "autoLogin")
         
         if autoLogin {
             autoLoginLabel.textColor = UIColor.customViolet
@@ -65,80 +65,16 @@ class LogInViewController: UIViewController {
                 autoLoginTryingLabel.topAnchor.constraint(equalTo: animationView.bottomAnchor, constant: 20),
                 autoLoginTryingLabel.centerXAnchor.constraint(equalTo: animationView.centerXAnchor)
             ])
-            UsersAPIService.shared.autoLogin(userId: id, refreshToken: refreshToken) { result in
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-                    switch APIResponseAnalyze.analyze(result: result, vc: self) {
-                    case .success:
-                        guard let userInfo = result["user"] as? UserInfo, let personalPage = UIStoryboard(name: "PersonalMemo", bundle: nil).instantiateViewController(withIdentifier: "MemoNavigationController") as? MemoNavigationController, let adminPage = UIStoryboard(name: "Admin", bundle: nil).instantiateViewController(withIdentifier: "AdminNavigationController") as? AdminNavigationController  else { return }
-                        
-                        // ViewModel에 적절한 유저정보 전달
-                        AdminViewModel.shared.adminUser = (userInfo.isAdmin == 1 ? userInfo : nil)
-                        UserInfoViewModel.shared.user = userInfo
-                        MemoViewModel.shared.user = (userInfo.isAdmin == 1 ? nil : userInfo)
-                        
-                        // 어드민 혹은 메모 페이지로 이동
-                        if userInfo.isAdmin == 1 {
-                            adminPage.modalPresentationStyle = .fullScreen
-                            adminPage.modalTransitionStyle = .crossDissolve
-                            self.present(adminPage, animated: true, completion: {
-                                animationView.stop()
-                                animationView.alpha = 0
-                                self.loadingView.alpha = 0
-                                self.idTextField.text = ""
-                                self.pwTextField.text = ""
-                            })
-                        } else {
-                            personalPage.modalPresentationStyle = .fullScreen
-                            personalPage.modalTransitionStyle = .crossDissolve
-                            self.present(personalPage, animated: true, completion: {
-                                animationView.stop()
-                                animationView.alpha = 0
-                                self.loadingView.alpha = 0
-                                self.idTextField.text = ""
-                                self.pwTextField.text = ""
-                            })
-                        }
-                    default:
-                        if let message = result["message"] as? String, message == "No user found" {
-                            UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut) {
-                                self.loadingView.alpha = 0
-                                animationView.alpha = 0
-                            } completion: { _ in
-                                let alert = UIAlertController(title: "", message: "해당 이메일로 가입된 정보가 없습니다", preferredStyle: .alert)
-                                let action = UIAlertAction(title: "확인", style: .default, handler: nil)
-                                alert.addAction(action)
-                                self.present(alert, animated: true, completion: nil)
-                            }
-                        } else if let message = result["message"] as? String, message == "Incorrect password" {
-                            UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut) {
-                                self.loadingView.alpha = 0
-                                animationView.alpha = 0
-                            } completion: { _ in
-                                let alert = UIAlertController(title: "", message: "비밀번호가 일치하지 않습니다", preferredStyle: .alert)
-                                let action = UIAlertAction(title: "확인", style: .default, handler: nil)
-                                alert.addAction(action)
-                                self.present(alert, animated: true, completion: nil)
-                            }
-                        } else {
-                            UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut) {
-                                self.loadingView.alpha = 0
-                                animationView.alpha = 0
-                            } completion: { _ in
-                                
-                                let alert = UIAlertController(title: "", message: "로그인할 수 없습니다", preferredStyle: .alert)
-                                let action = UIAlertAction(title: "확인", style: .default, handler: nil)
-                                alert.addAction(action)
-                                self.present(alert, animated: true, completion: nil)
-                            }
-                        }
-                    }
-                }
-            }
+            automaticLogin(id: id, refreshToken: refreshToken)
         } else {
             animationView.play { _ in
                 UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut) {
                     self.loadingView.alpha = 0
-                    animationView.alpha = 0
+                    self.animationView.alpha = 0
+                } completion: { _ in
+                    if UserDefaults.standard.bool(forKey: "onRegister") == true, (UserDefaults.standard.string(forKey: "onRegister-Email") != nil) {
+                        self.onRegister()
+                    }
                 }
             }
         }
@@ -164,7 +100,6 @@ class LogInViewController: UIViewController {
             registerButtonBottomMargin.constant = 40
         }
     }
-    
     
     // MARK: Button action
     
@@ -245,9 +180,8 @@ class LogInViewController: UIViewController {
     
     // 자동로그인
     @IBAction func autoLoginButtonDidTap(_ sender: Any) {
-        let autoLogin: Bool = KeychainWrapper.standard[.autoLogin] ?? false
-        KeychainWrapper.standard.set(!autoLogin, forKey: KeychainWrapper.Key.autoLogin.rawValue)
-        
+        let autoLogin: Bool = UserDefaults.standard.bool(forKey: "autoLogin")
+        UserDefaults.standard.set(!autoLogin, forKey: "autoLogin")
         if !autoLogin {
             autoLoginLabel.textColor = UIColor.customViolet
             autoLoginCheckImage.image = UIImage(systemName: "checkmark.square.fill")
@@ -269,5 +203,97 @@ class LogInViewController: UIViewController {
     // MARK: TextField action
     @IBAction func pwTextFieldDidBegin(_ sender: Any) {
         pwTextField.text = ""
+    }
+    
+    // MARK: Automatically move to other pages
+    func automaticLogin(id: String, refreshToken: String) {
+        UsersAPIService.shared.autoLogin(userId: id, refreshToken: refreshToken) { result in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                switch APIResponseAnalyze.analyze(result: result, vc: self) {
+                case .success:
+                    guard let userInfo = result["user"] as? UserInfo, let personalPage = UIStoryboard(name: "PersonalMemo", bundle: nil).instantiateViewController(withIdentifier: "MemoNavigationController") as? MemoNavigationController, let adminPage = UIStoryboard(name: "Admin", bundle: nil).instantiateViewController(withIdentifier: "AdminNavigationController") as? AdminNavigationController  else { return }
+                    
+                    // ViewModel에 적절한 유저정보 전달
+                    AdminViewModel.shared.adminUser = (userInfo.isAdmin == 1 ? userInfo : nil)
+                    UserInfoViewModel.shared.user = userInfo
+                    MemoViewModel.shared.user = (userInfo.isAdmin == 1 ? nil : userInfo)
+                    
+                    // 어드민 혹은 메모 페이지로 이동
+                    if userInfo.isAdmin == 1 {
+                        adminPage.modalPresentationStyle = .fullScreen
+                        adminPage.modalTransitionStyle = .crossDissolve
+                        self.present(adminPage, animated: true, completion: {
+                            self.animationView.stop()
+                            self.animationView.alpha = 0
+                            self.loadingView.alpha = 0
+                            self.idTextField.text = ""
+                            self.pwTextField.text = ""
+                        })
+                    } else {
+                        personalPage.modalPresentationStyle = .fullScreen
+                        personalPage.modalTransitionStyle = .crossDissolve
+                        self.present(personalPage, animated: true, completion: {
+                            self.animationView.stop()
+                            self.animationView.alpha = 0
+                            self.loadingView.alpha = 0
+                            self.idTextField.text = ""
+                            self.pwTextField.text = ""
+                        })
+                    }
+                default:
+                    if let message = result["message"] as? String, message == "No user found" {
+                        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut) {
+                            self.loadingView.alpha = 0
+                            self.animationView.alpha = 0
+                        } completion: { _ in
+                            let alert = UIAlertController(title: "", message: "해당 이메일로 가입된 정보가 없습니다", preferredStyle: .alert)
+                            let action = UIAlertAction(title: "확인", style: .default, handler: nil)
+                            alert.addAction(action)
+                            self.present(alert, animated: true, completion: nil)
+                        }
+                    } else if let message = result["message"] as? String, message == "Incorrect password" {
+                        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut) {
+                            self.loadingView.alpha = 0
+                            self.animationView.alpha = 0
+                        } completion: { _ in
+                            let alert = UIAlertController(title: "", message: "비밀번호가 일치하지 않습니다", preferredStyle: .alert)
+                            let action = UIAlertAction(title: "확인", style: .default, handler: nil)
+                            alert.addAction(action)
+                            self.present(alert, animated: true, completion: nil)
+                        }
+                    } else {
+                        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut) {
+                            self.loadingView.alpha = 0
+                            self.animationView.alpha = 0
+                        } completion: { _ in
+                            
+                            let alert = UIAlertController(title: "", message: "로그인할 수 없습니다", preferredStyle: .alert)
+                            let action = UIAlertAction(title: "확인", style: .default, handler: nil)
+                            alert.addAction(action)
+                            self.present(alert, animated: true, completion: nil)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    func onRegister() {
+        let alert = UIAlertController(title: "", message: "회원가입 중이던 정보가 있습니다. 이어서 회원가입을 진행하시겠습니까?", preferredStyle: .alert)
+        let action1 = UIAlertAction(title: "취소", style: .default) { _ in
+            UserDefaults.standard.set(false, forKey: "onRegister")
+            UserDefaults.standard.removeObject(forKey: "onRegister-Email")
+        }
+        let action2 = UIAlertAction(title: "이동", style: .default) { _ in
+            guard let registerPage = UIStoryboard(name: "Register", bundle: nil).instantiateViewController(withIdentifier: "RegisterNavigationController") as? RegisterNavigationController else { return }
+            registerPage.modalPresentationStyle = .fullScreen
+            self.present(registerPage, animated: true, completion: {
+                self.idTextField.text = ""
+                self.pwTextField.text = ""
+            })
+        }
+        alert.addAction(action1)
+        alert.addAction(action2)
+        self.present(alert, animated: true, completion: nil)
     }
 }

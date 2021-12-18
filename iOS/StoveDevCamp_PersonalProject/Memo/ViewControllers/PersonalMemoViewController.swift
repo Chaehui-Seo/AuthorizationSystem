@@ -60,7 +60,7 @@ class PersonalMemoViewController: UIViewController {
                                     MemoViewModel.shared.memos = list
                                 }
                             case .InvalidToken :
-                                UsersAPIService.shared.checkRefreshToken(jwt: currentUser.refreshToken ?? "", userId: userInfo.userId) { result2 in
+                                UsersAPIService.shared.checkRefreshToken() { result2 in
                                     DispatchQueue.main.async {
                                         switch APIResponseAnalyze.analyze_withToken(result: result2, vc: self) {
                                         case .success :
@@ -119,7 +119,7 @@ class PersonalMemoViewController: UIViewController {
                             blockedPage.didMove(toParent: self)
                         }
                     case .InvalidToken :
-                        UsersAPIService.shared.checkRefreshToken(jwt: userInfo.refreshToken ?? "", userId: userInfo.userId) { result2 in
+                        UsersAPIService.shared.checkRefreshToken() { result2 in
                             DispatchQueue.main.async {
                                 switch APIResponseAnalyze.analyze_withToken(result: result2, vc: self) {
                                 case .success :

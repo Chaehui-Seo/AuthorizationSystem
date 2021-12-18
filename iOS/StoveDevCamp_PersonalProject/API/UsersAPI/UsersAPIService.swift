@@ -382,39 +382,6 @@ struct UsersAPIService {
         task.resume()
     }
 
-
-//    func changeEmailVerification(jwt: String?, userId: String, isEmailVerified: Int, isAdmin: Int, completion: @escaping ([String: Any])->Void) {
-//        let url = URL(string: "http://localhost:3306/users/change-email-verification")!
-//        var request = URLRequest(url: url)
-//        
-//        let postData : [String: Any] = ["userId" : userId, "isEmailVerified" : isEmailVerified, "isAdmin": isAdmin]
-//        let jsonData = try? JSONSerialization.data(withJSONObject: postData)
-//        request.httpMethod = "POST"
-//        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-//        if let token = jwt {
-//            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-//        }
-//        request.httpBody = jsonData
-//        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-//            let successRange = 200 ..< 300
-//            guard error == nil, let statusCode = (response as? HTTPURLResponse)?.statusCode, successRange.contains(statusCode), let resultData = data else {
-//                if (response as? HTTPURLResponse)?.statusCode == 404 {
-//                    completion(["success" : 0, "message" : "Invalid token"])
-//                } else {
-//                    completion(["success" : 0])
-//                }
-//                return
-//            }
-//            let responseJSON = try? JSONSerialization.jsonObject(with: resultData, options: [])
-//            if let result = responseJSON as? [String: Any] {
-//                completion(result)
-//            } else {
-//                completion(["success" : 0])
-//            }
-//        }
-//        task.resume()
-//    }
-
     func changeUserBlock(jwt: String?, userId: String, isBlocked: Int, isAdmin: Int, completion: @escaping ([String: Any])->Void) {
         let url = URL(string: "http://localhost:3306/users/change-user-block")!
         var request = URLRequest(url: url)
@@ -491,16 +458,17 @@ struct UsersAPIService {
         task.resume()
     }
     
-    func checkRefreshToken(jwt: String, userId: String, completion: @escaping ([String: Any])->Void) {
-        print("refresh token")
+    func checkRefreshToken(completion: @escaping ([String: Any])->Void) {
         let url = URL(string: "http://localhost:3306/users/refresh-access-token")!
         var request = URLRequest(url: url)
-        
-        let postData : [String: Any] = ["userId" : userId]
+        let id: String = KeychainWrapper.standard[.id] ?? ""
+        let postData : [String: Any] = ["userId" : id]
         let jsonData = try? JSONSerialization.data(withJSONObject: postData)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("Bearer \(jwt)", forHTTPHeaderField: "Authorization")
+        if let token: String = KeychainWrapper.standard[.refreshToken] {
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
         request.httpBody = jsonData
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             let successRange = 200 ..< 300
@@ -554,6 +522,8 @@ struct UsersAPIService {
             guard error == nil, let statusCode = (response as? HTTPURLResponse)?.statusCode, successRange.contains(statusCode), let resultData = data else {
                 if (response as? HTTPURLResponse)?.statusCode == 404 {
                     completion(["success" : 0, "message" : "Invalid token"])
+                } else if (response as? HTTPURLResponse)?.statusCode == 401 {
+                    completion(["success" : 0, "message" : "incorrect password"])
                 } else {
                     completion(["success" : 0])
                 }

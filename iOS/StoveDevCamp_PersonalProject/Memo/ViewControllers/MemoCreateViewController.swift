@@ -87,7 +87,7 @@ class MemoCreateViewController: UIViewController{
                         }
                     }
                 case .InvalidToken :
-                    UsersAPIService.shared.checkRefreshToken(jwt: currentUser.refreshToken ?? "", userId: user.userId) { result2 in
+                    UsersAPIService.shared.checkRefreshToken() { result2 in
                         DispatchQueue.main.async {
                             switch APIResponseAnalyze.analyze_withToken(result: result2, vc: self) {
                             case .success :
@@ -144,7 +144,7 @@ class MemoCreateViewController: UIViewController{
                             }
                         }
                     case .InvalidToken :
-                        UsersAPIService.shared.checkRefreshToken(jwt: currentUser.refreshToken ?? "", userId: user.userId) { result2 in
+                        UsersAPIService.shared.checkRefreshToken() { result2 in
                             DispatchQueue.main.async {
                                 switch APIResponseAnalyze.analyze_withToken(result: result2, vc: self) {
                                 case .success :
@@ -195,7 +195,7 @@ class MemoCreateViewController: UIViewController{
                             }
                         }
                     case .InvalidToken :
-                        UsersAPIService.shared.checkRefreshToken(jwt: currentUser.refreshToken ?? "", userId: user.userId) { result2 in
+                        UsersAPIService.shared.checkRefreshToken() { result2 in
                             DispatchQueue.main.async {
                                 switch APIResponseAnalyze.analyze_withToken(result: result2, vc: self) {
                                 case .success :

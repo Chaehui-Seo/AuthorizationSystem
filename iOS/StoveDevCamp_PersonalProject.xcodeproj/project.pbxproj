@@ -50,6 +50,7 @@
 		4988DE81276C85C40040C479 /* APIResponseAnalyze.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4988DE80276C85C40040C479 /* APIResponseAnalyze.swift */; };
 		49C84330276CA20100134EA1 /* AdminListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C8432F276CA20100134EA1 /* AdminListCell.swift */; };
 		49C84332276CA21F00134EA1 /* UIAlertController+textDidChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C84331276CA21F00134EA1 /* UIAlertController+textDidChange.swift */; };
+		49C84335276E2E2900134EA1 /* UIViewController+showAlerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C84334276E2E2900134EA1 /* UIViewController+showAlerts.swift */; };
 		49EDF949276A42890064DB65 /* AdminMemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49EDF948276A42890064DB65 /* AdminMemoViewController.swift */; };
 		49F15B0F276B9782005D682E /* confetti.json in Resources */ = {isa = PBXBuildFile; fileRef = 49F15B0E276B9782005D682E /* confetti.json */; };
 		49F9A496276AFC83009D4DF2 /* Account.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49F9A495276AFC83009D4DF2 /* Account.storyboard */; };
@@ -109,6 +110,7 @@
 		4988DE80276C85C40040C479 /* APIResponseAnalyze.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponseAnalyze.swift; sourceTree = "<group>"; };
 		49C8432F276CA20100134EA1 /* AdminListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminListCell.swift; sourceTree = "<group>"; };
 		49C84331276CA21F00134EA1 /* UIAlertController+textDidChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+textDidChange.swift"; sourceTree = "<group>"; };
+		49C84334276E2E2900134EA1 /* UIViewController+showAlerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+showAlerts.swift"; sourceTree = "<group>"; };
 		49EDF948276A42890064DB65 /* AdminMemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminMemoViewController.swift; sourceTree = "<group>"; };
 		49F15B0E276B9782005D682E /* confetti.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = confetti.json; sourceTree = "<group>"; };
 		49F9A495276AFC83009D4DF2 /* Account.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Account.storyboard; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 				4988DE77276C4E630040C479 /* KeychainWrapper+keys.swift */,
 				4930BF7C2768D61200AAE472 /* UIColor+CustomColor.swift */,
 				49C84331276CA21F00134EA1 /* UIAlertController+textDidChange.swift */,
+				49C84334276E2E2900134EA1 /* UIViewController+showAlerts.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -185,8 +188,7 @@
 				4930BF482768387400AAE472 /* AppDelegate.swift */,
 				4930BF4A2768387400AAE472 /* SceneDelegate.swift */,
 				4988DE7D276C75EE0040C479 /* LottieAssets */,
-				4930BF4E2768387400AAE472 /* Main.storyboard */,
-				4930BF4C2768387400AAE472 /* LogInViewController.swift */,
+				49C84336276E2EA100134EA1 /* Main-Login */,
 				49EDF94A276A49F30064DB65 /* Memo */,
 				4965B5F32769A5F500187DB0 /* Register */,
 				494C264C2769BF7E000E05BF /* Admin */,
@@ -194,7 +196,6 @@
 				49F9A494276ABF28009D4DF2 /* Setting */,
 				494C26452769B6D3000E05BF /* CommonViewModel */,
 				4988DE6B276C11520040C479 /* API */,
-				4988DE80276C85C40040C479 /* APIResponseAnalyze.swift */,
 				491CF9212768EB4600475A15 /* Extensions */,
 				491CF9222768EB5300475A15 /* Customized */,
 				4930BF512768387600AAE472 /* Assets.xcassets */,
@@ -296,6 +297,7 @@
 				4965B5ED27699B5A00187DB0 /* BlockMessageAPI */,
 				4965B5E827698E4B00187DB0 /* MemosAPI */,
 				491CF9292768EBDA00475A15 /* UsersAPI */,
+				49C84333276E2E0400134EA1 /* Response */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -327,6 +329,23 @@
 				49474D152769CBFD00E310B5 /* SettingViewController.swift */,
 			);
 			path = ViewControllrs;
+			sourceTree = "<group>";
+		};
+		49C84333276E2E0400134EA1 /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				4988DE80276C85C40040C479 /* APIResponseAnalyze.swift */,
+			);
+			path = Response;
+			sourceTree = "<group>";
+		};
+		49C84336276E2EA100134EA1 /* Main-Login */ = {
+			isa = PBXGroup;
+			children = (
+				4930BF4E2768387400AAE472 /* Main.storyboard */,
+				4930BF4C2768387400AAE472 /* LogInViewController.swift */,
+			);
+			path = "Main-Login";
 			sourceTree = "<group>";
 		};
 		49CB7570276C0F9800A65D76 /* ViewControllers */ = {
@@ -494,6 +513,7 @@
 				4965B5F12769A42000187DB0 /* RegisterViewModel.swift in Sources */,
 				49474D122769C10900E310B5 /* AdminViewModel.swift in Sources */,
 				49F9A49E276AFE61009D4DF2 /* CurrentIdCheckViewController.swift in Sources */,
+				49C84335276E2E2900134EA1 /* UIViewController+showAlerts.swift in Sources */,
 				49F9A498276AFCBF009D4DF2 /* NicknameChangeViewController.swift in Sources */,
 				4965B5E327698D6700187DB0 /* MemoInfoViewModel.swift in Sources */,
 				49F9A4A2276B1BFC009D4DF2 /* BlockedViewController.swift in Sources */,

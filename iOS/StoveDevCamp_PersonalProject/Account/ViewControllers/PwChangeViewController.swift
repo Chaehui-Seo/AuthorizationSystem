@@ -136,7 +136,7 @@ class PwChangeViewController: UIViewController {
                         alert.addAction(action)
                         self.present(alert, animated: true, completion: nil)
                     case .InvalidToken :
-                        UsersAPIService.shared.checkRefreshToken(jwt: AdminViewModel.shared.adminUser?.refreshToken ?? "", userId: id) { result2 in
+                        UsersAPIService.shared.checkRefreshToken() { result2 in
                             DispatchQueue.main.async {
                                 switch APIResponseAnalyze.analyze_withToken(result: result2, vc: self) {
                                 case .success :
@@ -209,7 +209,7 @@ class PwChangeViewController: UIViewController {
                         self.present(alert, animated: true, completion: nil)
                     }
                 case .InvalidToken :
-                    UsersAPIService.shared.checkRefreshToken(jwt: userInfo.refreshToken ?? "", userId: userInfo.userId) { result2 in
+                    UsersAPIService.shared.checkRefreshToken() { result2 in
                         DispatchQueue.main.async {
                             switch APIResponseAnalyze.analyze_withToken(result: result2, vc: self) {
                             case .success :
