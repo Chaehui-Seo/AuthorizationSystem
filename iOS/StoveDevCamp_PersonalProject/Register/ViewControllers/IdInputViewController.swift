@@ -34,6 +34,15 @@ class IdInputViewController: UIViewController {
         nextButton.layer.cornerRadius = 25
         if let idInfo = UserDefaults.standard.string(forKey: "onRegister-Email") {
             idTextField.text = idInfo
+            if isValidEmail(input: idInfo) {
+                idFormatCheckLabel.isHidden = true
+                sendVerifyMailButton.isEnabled = true
+            } else {
+                idFormatCheckLabel.isHidden = false
+                idFormatCheckLabel.text = "올바른 형식의 이메일을 입력해주세요"
+                idFormatCheckLabel.textColor = UIColor.systemRed
+                sendVerifyMailButton.isEnabled = false
+            }
         }
     }
     
