@@ -105,6 +105,7 @@ class PwInputViewController: UIViewController{
     // 가입하기
     @IBAction func registerButtonDidTap(_ sender: Any) {
         guard let userInfo = RegisterViewModel.shared.userId, let nickNameInfo = RegisterViewModel.shared.nickName, let pwInfo = pwTextField.text, pwInfo.isEmpty == false, let pwCheckInfo = pwCheckTextField.text, pwCheckInfo.isEmpty == false, pwInfo == pwCheckInfo else { return }
+        self.registerButton.isEnabled = false
         UsersAPIService.shared.register(userId: userInfo, nickName: nickNameInfo, password: pwInfo) { result in
             DispatchQueue.main.async {
                 if APIResponseAnalyze.analyze(result: result, vc: self) == .success {
@@ -124,12 +125,15 @@ class PwInputViewController: UIViewController{
                     
                     viewControllers[viewControllers.count - 1] = memoPage
                     self.navigationController?.setViewControllers(viewControllers, animated: true)
+                    self.registerButton.isEnabled = true
                 } else {
                     // 회원가입 실패
                     let alert = UIAlertController(title: "", message: "회원가입에 실패했습니다", preferredStyle: .alert)
                     let action = UIAlertAction(title: "확인", style: .default, handler: nil)
                     alert.addAction(action)
-                    self.present(alert, animated: true, completion: nil)
+                    self.present(alert, animated: true, completion: {
+                        self.registerButton.isEnabled = true
+                    })
                     
                 }
             }

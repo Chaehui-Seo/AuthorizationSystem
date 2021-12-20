@@ -95,6 +95,7 @@ class IdInputViewController: UIViewController {
     // 인증번호 전송 버튼
     @IBAction func sendVerifyMailButtonDidTap(_ sender: Any) {
         guard let idInfo = idTextField.text, idInfo.isEmpty == false else { return }
+        sendVerifyMailButton.isEnabled = false
         UsersAPIService.shared.sendEmailVerification(userId: idInfo) { result in
             print(result)
             DispatchQueue.main.async {
@@ -121,14 +122,18 @@ class IdInputViewController: UIViewController {
     // 다음
     @IBAction func nextButtonDidTap(_ sender: Any) {
         guard let verifyInput = verifyNumTextField.text, verifyInput.isEmpty == false, let inputNum = Int(verifyInput), let verify = verifyNum else { return }
+        nextButton.isEnabled = false
         if inputNum == verify {
             guard let nickNamePage = UIStoryboard(name: "Register", bundle: nil).instantiateViewController(withIdentifier: "NickNameInputViewController") as? NickNameInputViewController else { return }
             self.navigationController?.pushViewController(nickNamePage, animated: true)
+            nextButton.isEnabled = true
         } else {
             let alert = UIAlertController(title: "", message: "인증번호가 일치하지 않습니다", preferredStyle: .alert)
             let action = UIAlertAction(title: "확인", style: .default, handler: nil)
             alert.addAction(action)
-            self.present(alert, animated: true, completion: nil)
+            self.present(alert, animated: true, completion: {
+                self.nextButton.isEnabled = true
+            })
         }
         
     }

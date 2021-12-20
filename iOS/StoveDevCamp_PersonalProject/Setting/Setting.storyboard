@@ -124,9 +124,13 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="changeNickNameButton" destination="qHM-qo-GbY" id="dSm-Qw-KYl"/>
                         <outlet property="changeNickNameView" destination="6DZ-MM-nfA" id="UZJ-jB-lIx"/>
+                        <outlet property="changePwButton" destination="VvW-2u-Bm4" id="pHl-fS-hlr"/>
                         <outlet property="changePwView" destination="VcG-Mk-sF8" id="DVd-p3-JsJ"/>
                         <outlet property="logOutView" destination="LHO-rA-N6h" id="cj8-6s-7de"/>
+                        <outlet property="logoutButton" destination="54g-q4-i6Z" id="Y9Y-B4-ISf"/>
+                        <outlet property="withdrawalButton" destination="xCi-A0-6m0" id="scN-ZN-Q20"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -161,8 +161,13 @@ class PersonalMemoViewController: UIViewController {
     
     // MARK: Move to Setting
     @IBAction func settingButtonDidTap(_ sender: Any) {
-        guard let settingPage = UIStoryboard(name: "Setting", bundle: nil).instantiateViewController(withIdentifier: "SettingViewController") as? SettingViewController else { return }
+        settingButton.isEnabled = false
+        guard let settingPage = UIStoryboard(name: "Setting", bundle: nil).instantiateViewController(withIdentifier: "SettingViewController") as? SettingViewController else {
+            settingButton.isEnabled = true
+            return
+        }
         self.navigationController?.pushViewController(settingPage, animated: true)
+        settingButton.isEnabled = true
     }
 }
 

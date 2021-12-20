@@ -77,6 +77,7 @@ class CurrentIdCheckViewController: UIViewController {
     // 인증번호 받기
     @IBAction func sendVerifyMailButtonDidTap(_ sender: Any) {
         guard let idInfo = idTextField.text, idInfo.isEmpty == false else { return }
+        sendVerifyMailButton.isEnabled = false
         UsersAPIService.shared.sendEmailForPw(userId: idInfo) { result in
             print(result)
             if let success = result["success"] as? Int, success == 1, let verify = result["message"] as? Int {
@@ -88,6 +89,7 @@ class CurrentIdCheckViewController: UIViewController {
                     self.verifyNumTextField.isHidden = false
                     self.verifyNumUnderLine.isHidden = false
                     self.nextButton.isHidden = false
+                    self.sendVerifyMailButton.isEnabled = true
                 }
             } else if let message = result["message"] as? String, message == "Unavailable userId" {
                 // 실패

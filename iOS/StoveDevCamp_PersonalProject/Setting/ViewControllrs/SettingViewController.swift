@@ -14,6 +14,10 @@ class SettingViewController: UIViewController{
     @IBOutlet weak var logOutView: UIView!
     @IBOutlet weak var changeNickNameView: UIView!
     @IBOutlet weak var changePwView: UIView!
+    @IBOutlet weak var changeNickNameButton: UIButton!
+    @IBOutlet weak var changePwButton: UIButton!
+    @IBOutlet weak var logoutButton: UIButton!
+    @IBOutlet weak var withdrawalButton: UIButton!
     
     // MARK: Life Cycle
     override func viewDidLoad() {
@@ -39,6 +43,10 @@ class SettingViewController: UIViewController{
     // MARK: Button Action
     // 로그아웃
     @IBAction func logOutButtonDidTap(_ sender: Any) {
+        self.changeNickNameButton.isEnabled = false
+        self.changePwButton.isEnabled = false
+        self.logoutButton.isEnabled = false
+        self.withdrawalButton.isEnabled = false
         UserInfoViewModel.shared.user = nil
         AdminViewModel.shared.adminUser = nil
         MemoViewModel.shared.user = nil
@@ -46,19 +54,40 @@ class SettingViewController: UIViewController{
         KeychainWrapper.standard.removeObject(forKey: KeychainWrapper.Key.accessToken.rawValue)
         KeychainWrapper.standard.removeObject(forKey: KeychainWrapper.Key.id.rawValue)
         KeychainWrapper.standard.removeObject(forKey: KeychainWrapper.Key.refreshToken.rawValue)
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: {
+            self.changeNickNameButton.isEnabled = true
+            self.changePwButton.isEnabled = true
+            self.logoutButton.isEnabled = true
+            self.withdrawalButton.isEnabled = true
+        })
     }
     
     // 닉네임 변경
     @IBAction func changeNickNameButtonClicked(_ sender: Any) {
         guard let nicknamePage = UIStoryboard(name: "Account", bundle: nil).instantiateViewController(withIdentifier: "NicknameChangeViewController") as? NicknameChangeViewController else { return }
+        self.changeNickNameButton.isEnabled = false
+        self.changePwButton.isEnabled = false
+        self.logoutButton.isEnabled = false
+        self.withdrawalButton.isEnabled = false
         self.navigationController?.pushViewController(nicknamePage, animated: true)
+        self.changeNickNameButton.isEnabled = true
+        self.changePwButton.isEnabled = true
+        self.logoutButton.isEnabled = true
+        self.withdrawalButton.isEnabled = true
     }
     
     // 비밀번호 변경
     @IBAction func changePwButtonDidTap(_ sender: Any) {
         guard let changePwPage = UIStoryboard(name: "Account", bundle: nil).instantiateViewController(withIdentifier: "CurrentPwCheckViewController") as? CurrentPwCheckViewController else { return }
+        self.changeNickNameButton.isEnabled = false
+        self.changePwButton.isEnabled = false
+        self.logoutButton.isEnabled = false
+        self.withdrawalButton.isEnabled = false
         self.navigationController?.pushViewController(changePwPage, animated: true)
+        self.changeNickNameButton.isEnabled = true
+        self.changePwButton.isEnabled = true
+        self.logoutButton.isEnabled = true
+        self.withdrawalButton.isEnabled = true
     }
     
     // 뒤로 가기

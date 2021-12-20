@@ -51,17 +51,20 @@ class NickNameInputViewController: UIViewController {
     // 다음
     @IBAction func nextButtonDidTap(_ sender: Any) {
         guard let nickNameInfo = nickNameTextField.text, nickNameInfo.isEmpty == false else { return }
+        nextButton.isEnabled = false
         UsersAPIService.shared.checkNickNameDuplicate(nickName: nickNameInfo) { result in
             DispatchQueue.main.async {
                 if APIResponseAnalyze.analyze(result: result, vc: self) == .success {
                     RegisterViewModel.shared.nickName = nickNameInfo
                     guard let pwPage = UIStoryboard(name: "Register", bundle: nil).instantiateViewController(withIdentifier: "PwInputViewController") as? PwInputViewController else { return }
                     self.navigationController?.pushViewController(pwPage, animated: true)
+                    self.nextButton.isEnabled = true
                 } else {
                     let alert = UIAlertController(title: "", message: "이미 사용 중인 닉네임입니다", preferredStyle: .alert)
                     let action = UIAlertAction(title: "확인", style: .default, handler: nil)
                     alert.addAction(action)
                     self.present(alert, animated: true, completion: nil)
+                    self.nextButton.isEnabled = true
                     self.nickNameValidCheckLabel.isHidden = false
                     self.nickNameValidCheckLabel.text = "새 닉네임을 입력해주세요"
                     self.nickNameValidCheckLabel.textColor = UIColor.systemRed
