@@ -633,7 +633,7 @@ let sendEmailVerificationForPw = async function(req, res) {
 			const content = `인증번호는 ${ number } 입니다`
 
 			let transporter = nodemailer.createTransport({
-		        host: "smtp.naver.com",
+		        host: "smtp.gmail.com",
 		        secure: true,
 		        auth: {
 		            user: emailId,
@@ -728,7 +728,7 @@ let sendEmailverificationForRegister = async function(req, res) {
 			const content = `인증번호는 ${ number } 입니다`
 
 			let transporter = nodemailer.createTransport({
-		        host: "smtp.naver.com",
+		        host: "smtp.gmail.com",
 		        secure: true,
 		        auth: {
 		            user: emailId,
