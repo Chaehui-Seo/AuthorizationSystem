@@ -285,8 +285,8 @@ struct UsersAPIService {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             let successRange = 200 ..< 300
             guard error == nil, let statusCode = (response as? HTTPURLResponse)?.statusCode, successRange.contains(statusCode), let resultData = data else {
-                if (response as? HTTPURLResponse)?.statusCode == 404 {
-                    completion(["success" : 0, "message" : "Invalid token"])
+                if (response as? HTTPURLResponse)?.statusCode == 402 {
+                    completion(["success" : 0, "message" : "Unavailable userId"])
                 } else {
                     completion(["success" : 0])
                 }

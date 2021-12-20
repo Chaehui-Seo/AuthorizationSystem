@@ -662,7 +662,7 @@ let sendEmailVerificationForPw = async function(req, res) {
 		    })
 		} else {
 			// 계정이 없는 userId
-			res.status(400).json({ success: false, message: "Unavailable userId" })
+			res.status(402).json({ success: false, message: "Unavailable userId" })
 		}
 	})
 }

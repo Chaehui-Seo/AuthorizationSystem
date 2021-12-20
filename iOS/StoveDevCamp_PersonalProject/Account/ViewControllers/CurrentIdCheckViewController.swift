@@ -103,7 +103,7 @@ class CurrentIdCheckViewController: UIViewController {
             } else {
                 DispatchQueue.main.async {
                     self.idTextField.text = ""
-                    let alert = UIAlertController(title: "", message: "인증번호가 일치하지 않습니다", preferredStyle: .alert)
+                    let alert = UIAlertController(title: "", message: "오류가 발생했습니다", preferredStyle: .alert)
                     let action = UIAlertAction(title: "확인", style: .default, handler: nil)
                     alert.addAction(action)
                     self.present(alert, animated: true, completion: nil)
