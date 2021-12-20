@@ -39,6 +39,18 @@ npm install mysql express env-cmd bcryptjs jsonwebtoken nodemon dotenv --save
 ```
 3. `npm start`를 실행하시면 서버를 시작하실 수 있습니다
 4. iOS 폴더로 이동하셔서 `StoveDevCamp_PersonalProject.xcodeproj` 파일을 열어주시고, 시뮬레이터를 선택하신 후 run(`command + r`)하시면 앱을 사용하실 수 있습니다
+```
+<테스트 계정 정보>
+1) 일반 유저
+  id: test@gmail.com
+  pw: aaa123
+2) 차단된 유저
+  id: block@gmail.com
+  pw: aaa123
+3) 어드민 유저
+  id: admin
+  pw: admin
+```
 <br/>
 
 ## 🌟 Features
