@@ -25,13 +25,13 @@ Node.js로 서버를 구축하고 Amazon RDS로 MySQL을 운영하고 있는 iOS
 1. Server 폴더에 아래 사항들을 포함한 `.env` 파일을 추가해주세요.
 ```
 PORT=3306
-dbHost= Your DB Host URL
-dbUser= Your DB Master UserName
-dbPassword= Your DB Master Password
-dbName= Your DB Master Name
-emailId= Your Email Address For SMTP
-emailPw= Your Email Password For SMTP
-jwtSecret= Your Secret Key
+dbHost='database-1.clcnthr2is4n.ap-northeast-2.rds.amazonaws.com'
+dbUser='admin'
+dbPassword='admin123'
+dbName='PersonalProject'
+emailId='sgssgmanager@gmail.com'
+emailPw='streamingsgs!'
+jwtSecret='Kn8tO1Q4zPpw9vFUsatjPKb8mGuo8H/uM/9nGOMmKQjXG+ZGbK1Tuk/FuLULr+WJ6VeAAXI3GruLi6S+'
 ```
 2. Server 폴더로 이동하신 후 필요한 모듈을 설치해주세요. 필요한 모듈을 포함한 코드는 아래와 같습니다.
 ```
