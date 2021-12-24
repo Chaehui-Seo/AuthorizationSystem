@@ -197,7 +197,7 @@ class BlockedViewController: UIViewController {
                 badResultView.removeFromSuperview()
             }
         }
-        guard let userInfo = UserInfoViewModel.shared.user, let messageInfo = self.message else { return }
+        guard let userInfo = UserManager.shared.user, let messageInfo = self.message else { return }
         BlockMessageAPIService.shared.editBlockMessage(jwt: KeychainWrapper.standard[.accessToken], id: messageInfo.id, userId: userInfo.userId, response: responseNum) { _ in }
     }
     
@@ -216,7 +216,7 @@ class BlockedViewController: UIViewController {
     @IBAction func logoutButtonDidTap(_ sender: Any) {
         MemoViewModel.shared.selectedMemo = nil
         AdminViewModel.shared.adminUser = nil
-        UserInfoViewModel.shared.user = nil
+        UserManager.shared.user = nil
         MemoViewModel.shared.user = nil
         MemoViewModel.shared.memos = nil
         KeychainWrapper.standard.removeObject(forKey: KeychainWrapper.Key.accessToken.rawValue)

@@ -494,7 +494,7 @@ struct UsersAPIService {
                     KeychainWrapper.standard.set(response[0].refreshToken ?? "", forKey: KeychainWrapper.Key.refreshToken.rawValue)
                     AdminViewModel.shared.adminUser = AdminViewModel.shared.adminUser?.userId == response[0].userId ? response[0] : AdminViewModel.shared.adminUser
                     MemoViewModel.shared.user = MemoViewModel.shared.user?.userId == response[0].userId ? response[0] : MemoViewModel.shared.user
-                    UserInfoViewModel.shared.user = UserInfoViewModel.shared.user?.userId == response[0].userId ? response[0] : UserInfoViewModel.shared.user
+                    UserManager.shared.user = UserManager.shared.user?.userId == response[0].userId ? response[0] : UserManager.shared.user
                     completion(["success":1])
                 } catch let error {
                     print("---> error in login : \(error.localizedDescription)")

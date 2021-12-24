@@ -71,7 +71,7 @@ class MemoCreateViewController: UIViewController{
     // MARK: Button Action
     // 메모 삭제
     @IBAction func deleteButtonDidTap(_ sender: Any) {
-        guard let selectedMemo = MemoViewModel.shared.selectedMemo, let user = MemoViewModel.shared.user, let currentUser = UserInfoViewModel.shared.user else { return }
+        guard let selectedMemo = MemoViewModel.shared.selectedMemo, let user = MemoViewModel.shared.user, let currentUser = UserManager.shared.user else { return }
         
         MemosAPIService.shared.deleteMemo(jwt: KeychainWrapper.standard[.accessToken], id: selectedMemo.id, userId: user.userId, isAdmin: currentUser.isAdmin) { result in
             DispatchQueue.main.async {
@@ -128,7 +128,7 @@ class MemoCreateViewController: UIViewController{
     
     // 메모 생성
     @IBAction func doneButtonDidTap(_ sender: Any) {
-        guard let user = MemoViewModel.shared.user, let currentUser = UserInfoViewModel.shared.user, let content = memoTextView.text, content.isEmpty == false else { return }
+        guard let user = MemoViewModel.shared.user, let currentUser = UserManager.shared.user, let content = memoTextView.text, content.isEmpty == false else { return }
         if let selectedMemo = MemoViewModel.shared.selectedMemo {
             MemosAPIService.shared.editMemo(jwt: KeychainWrapper.standard[.accessToken], id: selectedMemo.id, userId: user.userId, color: colorString ?? "#C2C3F7", content: content, isAdmin: currentUser.isAdmin) { result in
                 DispatchQueue.main.async {

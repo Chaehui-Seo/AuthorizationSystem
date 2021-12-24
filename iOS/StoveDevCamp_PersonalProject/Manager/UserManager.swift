@@ -9,8 +9,8 @@ import Foundation
 import UIKit
 import Combine
 
-class UserInfoViewModel {
-    static let shared = UserInfoViewModel()
+class UserManager {
+    static let shared = UserManager()
     
     @Published var user: UserInfo?
 }

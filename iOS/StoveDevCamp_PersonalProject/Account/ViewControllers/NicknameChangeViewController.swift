@@ -50,13 +50,13 @@ class NicknameChangeViewController: UIViewController {
     // MARK: Button Action
     // 다음
     @IBAction func nextButtonDidTap(_ sender: Any) {
-        guard let nickNameInfo = nickNameTextField.text, nickNameInfo.isEmpty == false, let userInfo = UserInfoViewModel.shared.user else { return }
+        guard let nickNameInfo = nickNameTextField.text, nickNameInfo.isEmpty == false, let userInfo = UserManager.shared.user else { return }
         UsersAPIService.shared.changeNickName(jwt: KeychainWrapper.standard[.accessToken], userId: userInfo.userId, nickName: nickNameInfo, isAdmin: AdminViewModel.shared.adminUser == nil ? userInfo.isAdmin : 1) { result in
             DispatchQueue.main.async {
                 switch APIResponseAnalyze.analyze_withToken(result: result, vc: self) {
                 case .success :
                     if let user = result["user"] as? UserInfo {
-                        UserInfoViewModel.shared.user = user
+                        UserManager.shared.user = user
                         if let adminUser = AdminViewModel.shared.adminUser, adminUser.userId == user.userId {
                             AdminViewModel.shared.adminUser = user
                         }
@@ -92,7 +92,7 @@ class NicknameChangeViewController: UIViewController {
                                         switch APIResponseAnalyze.analyze_withToken(result: result3, vc: self) {
                                         case .success :
                                             if let user = result3["user"] as? UserInfo {
-                                                UserInfoViewModel.shared.user = user
+                                                UserManager.shared.user = user
                                                 if let memoUser = MemoViewModel.shared.user, memoUser.userId == user.userId {
                                                     MemoViewModel.shared.user = user
                                                 } else {

@@ -39,7 +39,7 @@ class PersonalMemoViewController: UIViewController {
             .sink { [weak self] user in
                 // user = 누구의 메모지를 보고 있는가
                 // currentUser = 로그인된 사람은 누구인가
-                guard let self = self, let userInfo = user, let currentUser  = UserInfoViewModel.shared.user else { return }
+                guard let self = self, let userInfo = user, let currentUser  = UserManager.shared.user else { return }
                 // 설정 버튼은 로그인한 계정 = 메모 계정일 경우에만 보여야 함
                 self.settingButton.isHidden = (userInfo.userId != currentUser.userId)
                 
@@ -103,7 +103,7 @@ class PersonalMemoViewController: UIViewController {
     // MARK: User blocked
     func userIsBlocked() {
         if AdminViewModel.shared.adminUser == nil {
-            guard let userInfo = UserInfoViewModel.shared.user else { return }
+            guard let userInfo = UserManager.shared.user else { return }
             BlockMessageAPIService.shared.loadBlockMessages(jwt: KeychainWrapper.standard[.accessToken], userId: userInfo.userId) { result in
                 DispatchQueue.main.async {
                     switch APIResponseAnalyze.analyze_withToken(result: result, vc: self) {

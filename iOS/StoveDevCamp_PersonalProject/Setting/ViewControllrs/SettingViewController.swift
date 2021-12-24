@@ -47,7 +47,7 @@ class SettingViewController: UIViewController{
         self.changePwButton.isEnabled = false
         self.logoutButton.isEnabled = false
         self.withdrawalButton.isEnabled = false
-        UserInfoViewModel.shared.user = nil
+        UserManager.shared.user = nil
         AdminViewModel.shared.adminUser = nil
         MemoViewModel.shared.user = nil
         MemoViewModel.shared.memos = nil
@@ -97,7 +97,7 @@ class SettingViewController: UIViewController{
     
     // 탈퇴하기
     @IBAction func withdrawalButtonDidTap(_ sender: Any) {
-        guard let userInfo = UserInfoViewModel.shared.user else { return }
+        guard let userInfo = UserManager.shared.user else { return }
         let alert = UIAlertController(title: "회원탈퇴", message: "탈퇴하시면 본 서비스에서 작성하신 모든 정보가 삭제됩니다. 탈퇴하시겠습니까?", preferredStyle: .alert)
         let action1 = UIAlertAction(title: "취소", style: .cancel, handler: nil)
         let action2 = UIAlertAction(title: "탈퇴", style: .destructive) {_ in
@@ -111,7 +111,7 @@ class SettingViewController: UIViewController{
                     if let success = result["success"] as? Int, success == 1 {
                         // 탈퇴 완료
                         DispatchQueue.main.async {
-                            UserInfoViewModel.shared.user = nil
+                            UserManager.shared.user = nil
                             AdminViewModel.shared.adminUser = nil
                             MemoViewModel.shared.user = nil
                             MemoViewModel.shared.memos = nil
@@ -135,7 +135,7 @@ class SettingViewController: UIViewController{
                                     case .success :
                                         UsersAPIService.shared.withdrawal(jwt: KeychainWrapper.standard[.accessToken], userId: userInfo.userId, password: pwInfo, isAdmin: userInfo.isAdmin) { result3 in
                                             if let success = result3["success"] as? Int, success == 1 {
-                                                UserInfoViewModel.shared.user = nil
+                                                UserManager.shared.user = nil
                                                 AdminViewModel.shared.adminUser = nil
                                                 MemoViewModel.shared.user = nil
                                                 MemoViewModel.shared.memos = nil

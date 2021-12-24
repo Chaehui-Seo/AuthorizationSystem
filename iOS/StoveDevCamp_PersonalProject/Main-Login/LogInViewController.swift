@@ -116,7 +116,7 @@ class LogInViewController: UIViewController {
                     
                     // ViewModel에 적절한 유저정보 전달
                     AdminViewModel.shared.adminUser = (userInfo.isAdmin == 1 ? userInfo : nil)
-                    UserInfoViewModel.shared.user = userInfo
+                    UserManager.shared.user = userInfo
                     MemoViewModel.shared.user = (userInfo.isAdmin == 1 ? nil : userInfo)
                     KeychainWrapper.standard.set(userInfo.userId, forKey: KeychainWrapper.Key.id.rawValue)
                     KeychainWrapper.standard.set(userInfo.refreshToken ?? "", forKey: KeychainWrapper.Key.refreshToken.rawValue)
@@ -215,7 +215,7 @@ class LogInViewController: UIViewController {
                     
                     // ViewModel에 적절한 유저정보 전달
                     AdminViewModel.shared.adminUser = (userInfo.isAdmin == 1 ? userInfo : nil)
-                    UserInfoViewModel.shared.user = userInfo
+                    UserManager.shared.user = userInfo
                     MemoViewModel.shared.user = (userInfo.isAdmin == 1 ? nil : userInfo)
                     
                     // 어드민 혹은 메모 페이지로 이동

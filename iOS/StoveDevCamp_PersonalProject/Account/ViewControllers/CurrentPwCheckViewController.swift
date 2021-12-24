@@ -27,7 +27,7 @@ class CurrentPwCheckViewController: UIViewController {
     
     // MARK: Password Input
     @IBAction func pwTextFieldEditingChanged(_ sender: Any) {
-        guard UserInfoViewModel.shared.user != nil else { return }
+        guard UserManager.shared.user != nil else { return }
         guard let pwInfo = pwTextField.text, pwInfo.isEmpty == false else {
             nextButton.isEnabled = false
             return
@@ -38,7 +38,7 @@ class CurrentPwCheckViewController: UIViewController {
     // MARK: Button Action
     // 다음
     @IBAction func nextButtonDidTap(_ sender: Any) {
-        guard let userInfo = UserInfoViewModel.shared.user, let pwInfo = pwTextField.text, pwInfo.isEmpty == false else { return }
+        guard let userInfo = UserManager.shared.user, let pwInfo = pwTextField.text, pwInfo.isEmpty == false else { return }
         UsersAPIService.shared.login(userId: userInfo.userId, pw: pwInfo) { result in
             print(result)
             if let success = result["success"] as? Int, success == 1 {

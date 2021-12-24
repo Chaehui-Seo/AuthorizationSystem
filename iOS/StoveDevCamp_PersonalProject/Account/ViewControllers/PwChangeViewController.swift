@@ -116,7 +116,7 @@ class PwChangeViewController: UIViewController {
     // 변경
     @IBAction func changeButtonDidTap(_ sender: Any) {
         guard let pwInfo = pwTextField.text, pwInfo.isEmpty == false, let pwCheckInfo = pwCheckTextField.text, pwCheckInfo.isEmpty == false, pwInfo == pwCheckInfo else {return }
-        guard let userInfo = UserInfoViewModel.shared.user else {
+        guard let userInfo = UserManager.shared.user else {
             // 로그인 페이지 혹은 어드민페이지 이메일 인증으로 비번 변경
             guard let id = idInfo else { return }
             UsersAPIService.shared.changePassword(jwt: KeychainWrapper.standard[.accessToken], userId: id, newPw: pwInfo, isAdmin: 1) { result in
@@ -198,7 +198,7 @@ class PwChangeViewController: UIViewController {
                 switch APIResponseAnalyze.analyze_withToken(result: result, vc: self) {
                 case .success :
                     if let user = result["user"] as? UserInfo {
-                        UserInfoViewModel.shared.user = user
+                        UserManager.shared.user = user
                         let alert = UIAlertController(title: "", message: "비밀번호를 변경했습니다", preferredStyle: .alert)
                         let action = UIAlertAction(title: "확인", style: .default) {_ in
                             self.pwTextField.text = ""
@@ -219,7 +219,7 @@ class PwChangeViewController: UIViewController {
                                         switch APIResponseAnalyze.analyze_withToken(result: result3, vc: self) {
                                         case .success :
                                             if let user = result3["user"] as? UserInfo {
-                                                UserInfoViewModel.shared.user = user
+                                                UserManager.shared.user = user
                                                 DispatchQueue.main.async {
                                                     let alert = UIAlertController(title: "", message: "비밀번호를 변경했습니다", preferredStyle: .alert)
                                                     let action = UIAlertAction(title: "확인", style: .default) {_ in

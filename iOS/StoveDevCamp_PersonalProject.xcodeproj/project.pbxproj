@@ -29,7 +29,7 @@
 		494C26442769B6BF000E05BF /* MemoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494C26432769B6BE000E05BF /* MemoCell.swift */; };
 		494C26472769B78D000E05BF /* UIColor+hexCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494C26462769B78D000E05BF /* UIColor+hexCode.swift */; };
 		494C264B2769BF07000E05BF /* AdminMainPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494C264A2769BF07000E05BF /* AdminMainPageViewController.swift */; };
-		4965B5DB276972AD00187DB0 /* UserInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4965B5DA276972AD00187DB0 /* UserInfoViewModel.swift */; };
+		4965B5DB276972AD00187DB0 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4965B5DA276972AD00187DB0 /* UserManager.swift */; };
 		4965B5DD276978F100187DB0 /* PersonalMemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4965B5DC276978F100187DB0 /* PersonalMemoViewController.swift */; };
 		4965B5DF2769812C00187DB0 /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4965B5DE2769812C00187DB0 /* Setting.storyboard */; };
 		4965B5E12769825100187DB0 /* MemoNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4965B5E02769825100187DB0 /* MemoNavigationController.swift */; };
@@ -90,7 +90,7 @@
 		494C26432769B6BE000E05BF /* MemoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoCell.swift; sourceTree = "<group>"; };
 		494C26462769B78D000E05BF /* UIColor+hexCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+hexCode.swift"; sourceTree = "<group>"; };
 		494C264A2769BF07000E05BF /* AdminMainPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminMainPageViewController.swift; sourceTree = "<group>"; };
-		4965B5DA276972AD00187DB0 /* UserInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoViewModel.swift; sourceTree = "<group>"; };
+		4965B5DA276972AD00187DB0 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		4965B5DC276978F100187DB0 /* PersonalMemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalMemoViewController.swift; sourceTree = "<group>"; };
 		4965B5DE2769812C00187DB0 /* Setting.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
 		4965B5E02769825100187DB0 /* MemoNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoNavigationController.swift; sourceTree = "<group>"; };
@@ -194,7 +194,7 @@
 				494C264C2769BF7E000E05BF /* Admin */,
 				494DC149276C10DE00D80DDA /* Account */,
 				49F9A494276ABF28009D4DF2 /* Setting */,
-				494C26452769B6D3000E05BF /* CommonViewModel */,
+				494C26452769B6D3000E05BF /* Manager */,
 				4988DE6B276C11520040C479 /* API */,
 				491CF9212768EB4600475A15 /* Extensions */,
 				491CF9222768EB5300475A15 /* Customized */,
@@ -216,12 +216,12 @@
 			path = ViewControllers;
 			sourceTree = "<group>";
 		};
-		494C26452769B6D3000E05BF /* CommonViewModel */ = {
+		494C26452769B6D3000E05BF /* Manager */ = {
 			isa = PBXGroup;
 			children = (
-				4965B5DA276972AD00187DB0 /* UserInfoViewModel.swift */,
+				4965B5DA276972AD00187DB0 /* UserManager.swift */,
 			);
-			path = CommonViewModel;
+			path = Manager;
 			sourceTree = "<group>";
 		};
 		494C264C2769BF7E000E05BF /* Admin */ = {
@@ -495,7 +495,7 @@
 				49C84332276CA21F00134EA1 /* UIAlertController+textDidChange.swift in Sources */,
 				4965B5F62769A75D00187DB0 /* NickNameInputViewController.swift in Sources */,
 				49474D162769CBFD00E310B5 /* SettingViewController.swift in Sources */,
-				4965B5DB276972AD00187DB0 /* UserInfoViewModel.swift in Sources */,
+				4965B5DB276972AD00187DB0 /* UserManager.swift in Sources */,
 				4965B5EF27699EA400187DB0 /* IdInputViewController.swift in Sources */,
 				49F9A4AD276B36DD009D4DF2 /* WelcomeViewController.swift in Sources */,
 				4930BF492768387400AAE472 /* AppDelegate.swift in Sources */,

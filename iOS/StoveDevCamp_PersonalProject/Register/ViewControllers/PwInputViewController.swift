@@ -118,7 +118,7 @@ class PwInputViewController: UIViewController{
                     
                     UserDefaults.standard.set(false, forKey: "onRegister")
                     UserDefaults.standard.removeObject(forKey: "onRegister-Email")
-                    UserInfoViewModel.shared.user = userInfo
+                    UserManager.shared.user = userInfo
                     MemoViewModel.shared.user = userInfo
                     KeychainWrapper.standard.set(userInfo.userId, forKey: KeychainWrapper.Key.id.rawValue)
                     KeychainWrapper.standard.set(userInfo.refreshToken ?? "", forKey: KeychainWrapper.Key.refreshToken.rawValue)

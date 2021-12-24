@@ -28,7 +28,7 @@ class AdminMainPageViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        UserInfoViewModel.shared.user = nil
+        UserManager.shared.user = nil
         MemoViewModel.shared.user = nil
     }
     
@@ -67,7 +67,7 @@ class AdminMainPageViewController: UIViewController {
     
     // MARK: Button Action
     @IBAction func settingButtonDidTap(_ sender: Any) {
-        UserInfoViewModel.shared.user = AdminViewModel.shared.adminUser
+        UserManager.shared.user = AdminViewModel.shared.adminUser
         guard let settingPage = UIStoryboard(name: "Setting", bundle: nil).instantiateViewController(withIdentifier: "SettingViewController") as? SettingViewController else { return }
         self.navigationController?.pushViewController(settingPage, animated: true)
     }
@@ -98,7 +98,7 @@ extension AdminMainPageViewController: UITableViewDataSource, UITableViewDelegat
         let alert = UIAlertController(title: users[indexPath.row].userId, message: nil, preferredStyle: .actionSheet)
         
         let action1 = UIAlertAction(title: "닉네임 변경하기", style: .default) { _ in
-            UserInfoViewModel.shared.user = users[indexPath.row]
+            UserManager.shared.user = users[indexPath.row]
             guard let nicknamePage = UIStoryboard(name: "Account", bundle: nil).instantiateViewController(withIdentifier: "NicknameChangeViewController") as? NicknameChangeViewController else { return }
             self.navigationController?.pushViewController(nicknamePage, animated: true)
         }
@@ -236,7 +236,7 @@ extension AdminMainPageViewController: UITableViewDataSource, UITableViewDelegat
         }
         let action4 = UIAlertAction(title: "메모 수정하기", style: .default) { _ in
             MemoViewModel.shared.user = users[indexPath.row]
-            UserInfoViewModel.shared.user = userInfo
+            UserManager.shared.user = userInfo
             guard let memoPage = UIStoryboard(name: "Admin", bundle: nil)
                 .instantiateViewController(withIdentifier: "AdminMemoViewController") as? AdminMemoViewController else { return }
             self.navigationController?.pushViewController(memoPage, animated: true)

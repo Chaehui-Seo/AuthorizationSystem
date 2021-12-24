@@ -13,7 +13,7 @@ extension UIViewController {
     func invalidToken() {
         MemoViewModel.shared.selectedMemo = nil
         AdminViewModel.shared.adminUser = nil
-        UserInfoViewModel.shared.user = nil
+        UserManager.shared.user = nil
         MemoViewModel.shared.user = nil
         MemoViewModel.shared.memos = nil
         KeychainWrapper.standard.removeObject(forKey: KeychainWrapper.Key.accessToken.rawValue)
