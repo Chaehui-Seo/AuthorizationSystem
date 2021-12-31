@@ -7,13 +7,13 @@ const db = mysql.createConnection({
 	user: process.env.dbUser,
 	password: process.env.dbPassword,
 	database: process.env.dbName
-});
+})
 
 db.connect((err) => {
 	if (err) {
 		throw err;
 	}
-	console.log('MySql connected');
-});
+	console.log('MySql connected')
+})
 
 module.exports = db

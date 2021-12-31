@@ -8,7 +8,7 @@ const nodemailer = require('nodemailer')
 const { emailId, emailPw, secret } = require('../config/config')
 
 var generateRandom = function (min, max) {
-	var ranNum = Math.floor(Math.random()*(max-min+1)) + min;
+	var ranNum = Math.floor(Math.random()*(max-min+1)) + min
 	return ranNum
 }
 
@@ -111,7 +111,7 @@ let logIn = async function(req, res) {
 	const userId = req.body.userId
 	const password = req.body.password
 	var hash = bcrypt.hashSync(password, 8)
-    const bcryptPassword = bcrypt.compareSync(password, hash);
+    const bcryptPassword = bcrypt.compareSync(password, hash)
 	var sql = 'SELECT * from Users WHERE (Users.userId = ?) LIMIT 1'
 	let query = db.query(sql, [userId], (err, userResult) => {
 		if (err) { res.status(400).json({ success: false, message: err }) }
@@ -639,20 +639,20 @@ let sendEmailVerificationForPw = async function(req, res) {
 		            user: emailId,
 		            pass: emailPw
 		        }
-		    });
+		    })
 		    
 		    let mailOptions = {
 		        from: emailId,
 		        to: userId,
 		        subject: "인증번호 전송",
 		        text: content
-		    };
+		    }
 
 		    //전송 시작!
 		    transporter.sendMail(mailOptions, function(error, info){
 		        if (error) {
 		            //에러
-		            console.log(error);
+		            console.log(error)
 		            res.status(400).json({ success: false, message: error })
 		        }
 		        //전송 완료
@@ -734,20 +734,20 @@ let sendEmailverificationForRegister = async function(req, res) {
 		            user: emailId,
 		            pass: emailPw
 		        }
-		    });
+		    })
 		    
 		    let mailOptions = {
 		        from: emailId,
 		        to: userId,
 		        subject: "인증번호 전송",
 		        text: content
-		    };
+		    }
 
 		    //전송 시작!
 		    transporter.sendMail(mailOptions, function(error, info){
 		        if (error) {
 		            //에러
-		            console.log(error);
+		            console.log(error)
 		            res.status(400).json({ success: false, message: error })
 		        }
 		        //전송 완료
@@ -777,4 +777,4 @@ module.exports = {
   sendEmailverificationForRegister: sendEmailverificationForRegister,
   refreshAccessToken: refreshAccessToken,
   autoLogIn: autoLogIn
-};
+}
