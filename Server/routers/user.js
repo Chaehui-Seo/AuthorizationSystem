@@ -20,6 +20,6 @@ router.post('/users/change-user-block', controller.changeUserBlock)
 router.put('/users/email-verification-checked', controller.emailVerified)
 router.put('/users/set-fcm-token', controller.setFcmToken)
 
-router.delete("/users/withdrawal", controller.withdrawl)
+router.delete("/users/withdrawal", controller.withdraw)
 
 module.exports = router
