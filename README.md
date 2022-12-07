@@ -24,14 +24,19 @@ Node.js로 서버를 구축하고 Amazon RDS로 MySQL을 운영하고 있는 iOS
 > 테스트 run을 위해서 해당 정보가 필요하신 경우 말씀해주시면 제공해드리겠습니다.
 1. Server 폴더에 아래 사항들을 포함한 `.env` 파일을 추가해주세요.
 ```
-PORT=3306
-dbHost='database-1.clcnthr2is4n.ap-northeast-2.rds.amazonaws.com'
-dbUser='admin'
-dbPassword='admin123'
-dbName='PersonalProject'
-emailId='sgssgmanager@gmail.com'
-emailPw='streamingsgs!'
-jwtSecret='Kn8tO1Q4zPpw9vFUsatjPKb8mGuo8H/uM/9nGOMmKQjXG+ZGbK1Tuk/FuLULr+WJ6VeAAXI3GruLi6S+'
+// DB 관련 정보
+PORT=
+dbHost=
+dbUser=
+dbPassword=
+dbName=
+
+// 회원가입 시 이메일 인증을 위한 이메일 계정
+emailId=
+emailPw=
+
+// 토큰 유효성 확인을 위한 secret
+jwtSecret=
 ```
 2. Server 폴더로 이동하신 후 필요한 모듈을 설치해주세요. 필요한 모듈을 포함한 코드는 아래와 같습니다.
 ```
@@ -39,18 +44,7 @@ npm install mysql express env-cmd bcryptjs jsonwebtoken nodemon dotenv --save
 ```
 3. `npm start`를 실행하시면 서버를 시작하실 수 있습니다
 4. iOS 폴더로 이동하셔서 `StoveDevCamp_PersonalProject.xcodeproj` 파일을 열어주시고, 시뮬레이터를 선택하신 후 run(`command + r`)하시면 앱을 사용하실 수 있습니다
-```
-<테스트 계정 정보>
-1) 일반 유저
-  id: test@gmail.com
-  pw: aaa123
-2) 차단된 유저
-  id: block@gmail.com
-  pw: aaa123
-3) 어드민 유저
-  id: admin
-  pw: admin
-```
+
 <br/>
 
 ## 🌟 Features
